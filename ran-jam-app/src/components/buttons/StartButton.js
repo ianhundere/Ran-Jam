@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Chords.css';
 
 class StartButton extends Component {
 	render() {

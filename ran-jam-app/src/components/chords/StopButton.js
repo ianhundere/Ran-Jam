@@ -4,11 +4,9 @@ import './Chords.css';
 class StartButton extends Component {
 	render() {
 		return (
-			<div>
-				<button className="pure-button" onClick={this.props.clickHandler}>
-					Stop
-				</button>
-			</div>
+			<button className="pure-button" onClick={this.props.clickHandler}>
+				Stop
+			</button>
 		);
 	}
 }

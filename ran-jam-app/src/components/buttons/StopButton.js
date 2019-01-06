@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
-import './Chords.css';
 
-class StartButton extends Component {
+class StopButton extends Component {
 	render() {
 		return (
 			<button className="pure-button" onClick={this.props.clickHandler}>
-				Start
+				Stop
 			</button>
 		);
 	}
 }
 
-export default StartButton;
+export default StopButton;
