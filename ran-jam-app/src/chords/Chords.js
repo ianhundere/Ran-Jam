@@ -11,13 +11,31 @@ class Chords extends Component {
 	}
 
 	startPattern() {
-		var synth = new Tone.PolySynth(8, Tone.FMSynth).toMaster();
-		var chord = new Tone.Event(function(rate) {
-			synth.triggerAttackRelease([ 'D4', 'F4', 'A4', 'B4' ], '4n');
+		function randomIndex(array) {
+			return Math.floor(Math.random() * array.length);
+		}
+
+		function randomChord(randomIndex) {
+			var i = randomIndex(chords);
+			// console.log(chords[i]);
+			return chords[i];
+		}
+
+		var chords = [
+			[ 'C4', 'E4', 'G4', 'B4' ],
+			[ 'C4', 'D4', 'F4', 'A4' ],
+			[ 'D4', 'E4', 'G4', 'B4' ],
+			[ 'C4', 'E4', 'F4', 'A4' ],
+			[ 'D4', 'F4', 'G4', 'B4' ],
+			[ 'C4', 'E4', 'G4', 'A4' ],
+			[ 'D4', 'F4', 'A4', 'B4' ]
+		];
+		const synth = new Tone.PolySynth(8, Tone.FMSynth).toMaster();
+		const chord = new Tone.Event(function(rate) {
+			synth.triggerAttackRelease(randomChord(randomIndex), '4n');
 		}, '4n');
-		// Tone.Transport.start();
+		chord.loop = true;
 		chord.start();
-		console.log('we did it!');
 	}
 
 	render() {
