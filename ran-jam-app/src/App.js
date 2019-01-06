@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
+import Tone from 'tone';
 import './App.css';
 
-import Chords from './chords/Chords';
-import Tone from 'tone';
+import Chords from './components/chords/Chords';
 
 class App extends Component {
 	componentDidMount() {
