@@ -1,5 +1,7 @@
 import Tone from 'tone';
 
+import delay from '../fx/delay';
+
 var melodySynth = new Tone.MonoSynth({
 	oscillator: {
 		type: 'sine'
@@ -18,16 +20,15 @@ var melodySynth = new Tone.MonoSynth({
 		baseFrequency: 1000,
 		octaves: 7,
 		exponent: 0
-	},
-	volume: -30
-}).toMaster();
+	}
+}).chain(delay);
 
 let melodyPattern = new Tone.Pattern(
 	function(time, note) {
-		melodySynth.triggerAttackRelease(note, 0.6);
+		melodySynth.triggerAttackRelease(note, 0.5);
 	},
 	[ 'C5', 'D5', 'E5', 'F5', 'G5', 'A5', 'B5' ],
 	'random'
 );
 
-export default melodyPattern;
+export { melodySynth, melodyPattern };

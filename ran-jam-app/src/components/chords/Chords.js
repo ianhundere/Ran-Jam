@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './Chords.css';
+
 import StartButton from '../buttons/StartButton';
 import StopButton from '../buttons/StopButton';
 import chord from './chordInstrument';

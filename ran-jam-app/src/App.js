@@ -11,11 +11,13 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			currentPage: null
+			currentPage: null,
+			detune: 0
 		};
 		this.setPage = this.setPage.bind(this);
 		this.startClickHandler = this.startClickHandler.bind(this);
 		this.stopClickHandler = this.stopClickHandler.bind(this);
+		this.octaveHandler = this.octaveHandler.bind(this);
 	}
 
 	setPage(page) {
@@ -35,12 +37,25 @@ class App extends Component {
 		pattern.stop();
 	}
 
+	octaveHandler(inst, val) {
+		this.setState({
+			detune: this.state.detune + val
+		});
+	}
+
 	render() {
 		let partial;
 		if (this.state.currentPage === 'SAMPLE') {
 			partial = <Sample startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
 		} else if (this.state.currentPage === 'MELODY') {
-			partial = <Melody startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
+			partial = (
+				<Melody
+					startClickHandler={this.startClickHandler}
+					stopClickHandler={this.stopClickHandler}
+					octaveHandler={this.octaveHandler}
+					detune={this.state.detune}
+				/>
+			);
 		} else {
 			partial = <Chords startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
 		}
