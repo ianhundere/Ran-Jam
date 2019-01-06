@@ -10,23 +10,14 @@ class Melody extends Component {
 		this.state = {
 			melodyPattern: melodyPattern
 		};
-		this.startClickHandler = this.startClickHandler.bind(this);
-		this.stopClickHandler = this.stopClickHandler.bind(this);
 	}
 
-	startClickHandler() {
-		this.state.melodyPattern.start();
-	}
-
-	stopClickHandler() {
-		this.state.melodyPattern.stop();
-	}
 	render() {
 		return (
 			<div className="instrument">
 				<h1>MELODY</h1>
-				<StartButton clickHandler={this.startClickHandler} />
-				<StopButton clickHandler={this.stopClickHandler} />
+				<StartButton startClickHandler={this.props.startClickHandler} pattern={this.state.melodyPattern} />
+				<StopButton stopClickHandler={this.props.stopClickHandler} pattern={this.state.melodyPattern} />
 			</div>
 		);
 	}
