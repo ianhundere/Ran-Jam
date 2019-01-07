@@ -13,6 +13,14 @@ function randomChord(randomIndex) {
 
 var chordSynth = new Tone.PolySynth(8, Tone.FMSynth).chain(delay);
 
+chordSynth.set({
+	envelope: {
+		attack: 2,
+		release: 10
+	},
+	volume: -20
+});
+
 var chordPattern = new Tone.Event(function(rate) {
 	chordSynth.triggerAttackRelease(randomChord(randomIndex), '4n');
 });

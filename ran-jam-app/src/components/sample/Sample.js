@@ -33,7 +33,7 @@ class Sample extends Component {
 		const token = 'API_KEY_GOES_HERE';
 		const url = `http://www.freesound.org/apiv2/search/text/?query=${query}&fields=name,previews&token=${token}`;
 		fetch(url).then((res) => res.json()).then((res) => {
-			console.log(res.results);
+			this.props.setResults(res.results);
 		});
 	}
 

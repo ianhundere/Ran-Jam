@@ -12,9 +12,6 @@ class Piano extends Component {
 			currentNotes: []
 		};
 
-		const reverb = new Tone.Freeverb(0.7).toMaster();
-		const filter = new Tone.Filter(100, 'lowpass').toMaster();
-		const eq = new Tone.EQ3(-10, -10, -20).toMaster();
 		this.synth = new Tone.PolySynth({
 			oscillator: {
 				partials: [ 0, 2, 3, 4 ]

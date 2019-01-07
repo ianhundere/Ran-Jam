@@ -15,6 +15,7 @@ class App extends Component {
 		super();
 		this.state = {
 			currentPage: null,
+			searchResults: null,
 			melodyDetune: 0,
 			chordsDetune: 0,
 			key: [],
@@ -22,6 +23,7 @@ class App extends Component {
 			oldKeys: []
 		};
 		this.setPage = this._setPage.bind(this);
+		this.setResults = this._setResults.bind(this);
 		this.startClickHandler = this._startClickHandler.bind(this);
 		this.stopClickHandler = this._stopClickHandler.bind(this);
 		this.octaveHandler = this._octaveHandler.bind(this);
@@ -107,6 +109,13 @@ class App extends Component {
 		});
 	}
 
+	_setResults(results) {
+		this.setState({
+			searchResults: results,
+			currentPage: 'RESULTS'
+		});
+	}
+
 	_setPage(page) {
 		this.setState({
 			currentPage: page
@@ -136,7 +145,13 @@ class App extends Component {
 	render() {
 		let partial;
 		if (this.state.currentPage === 'SAMPLE') {
-			partial = <Sample startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
+			partial = (
+				<Sample
+					startClickHandler={this.startClickHandler}
+					stopClickHandler={this.stopClickHandler}
+					setResults={this.setResults}
+				/>
+			);
 		} else if (this.state.currentPage === 'MELODY') {
 			partial = (
 				<Melody
@@ -146,6 +161,8 @@ class App extends Component {
 					detune={this.state.melodyDetune}
 				/>
 			);
+		} else if (this.state.currentPage === 'RESULTS') {
+			partial = <Results results={this.state.searchResults} />;
 		} else if (this.state.currentPage === 'PIANO') {
 			partial = (
 				<Piano
