@@ -6,6 +6,7 @@ import './App.css';
 import Chords from './components/chords/Chords';
 import Melody from './components/melody/Melody';
 import Sample from './components/sample/Sample';
+import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Nav from './components/nav/Nav';
 
