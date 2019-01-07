@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Tone from 'tone';
+import './pure-min.css';
 import './App.css';
 
 import Chords from './components/chords/Chords';
@@ -19,10 +20,10 @@ class App extends Component {
 			newKeys: [],
 			oldKeys: []
 		};
-		this.setPage = this.setPage.bind(this);
-		this.startClickHandler = this.startClickHandler.bind(this);
-		this.stopClickHandler = this.stopClickHandler.bind(this);
-		this.octaveHandler = this.octaveHandler.bind(this);
+		this.setPage = this._setPage.bind(this);
+		this.startClickHandler = this._startClickHandler.bind(this);
+		this.stopClickHandler = this._stopClickHandler.bind(this);
+		this.octaveHandler = this._octaveHandler.bind(this);
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -74,11 +75,6 @@ class App extends Component {
 		];
 	}
 
-	setPage(page) {
-		this.setState({
-			currentPage: page
-		});
-	}
 	componentDidMount() {
 		Tone.Transport.start();
 		document.addEventListener('keydown', (e) => {
@@ -110,15 +106,21 @@ class App extends Component {
 		});
 	}
 
-	startClickHandler(pattern) {
+	_setPage(page) {
+		this.setState({
+			currentPage: page
+		});
+	}
+
+	_startClickHandler(pattern) {
 		pattern.start();
 	}
 
-	stopClickHandler(pattern) {
+	_stopClickHandler(pattern) {
 		pattern.stop();
 	}
 
-	octaveHandler(inst, val, synth) {
+	_octaveHandler(inst, val, synth) {
 		if (synth === 'melody') {
 			this.setState({
 				melodyDetune: this.state.melodyDetune + val

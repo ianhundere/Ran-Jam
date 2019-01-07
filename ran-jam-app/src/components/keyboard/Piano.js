@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Tone from 'tone';
 
+import delay from '../fx/delay';
 import Key from './Key';
 import './Keyboard.css';
 
@@ -18,12 +19,23 @@ class Piano extends Component {
 			oscillator: {
 				partials: [ 0, 2, 3, 4 ]
 			},
+			envelope: {
+				attack: 0.01,
+				decay: 1,
+				sustain: 0,
+				release: 3
+			},
+			filterEnvelope: {
+				attack: 0,
+				decay: 5,
+				sustain: 1,
+				release: 1,
+				baseFrequency: 1200,
+				octaves: 7,
+				exponent: 0
+			},
 			volume: 0
-		})
-			.chain(reverb)
-			.chain(eq)
-			.chain(filter)
-			.toMaster();
+		}).chain(delay);
 	}
 
 	noteOn = (note) => {

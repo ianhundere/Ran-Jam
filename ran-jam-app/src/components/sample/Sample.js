@@ -17,14 +17,14 @@ class Sample extends Component {
 		this.searchFreesound = this.searchFreesound.bind(this);
 	}
 
-	handleChange(evt) {
+	handleChange(event) {
 		this.setState({
-			query: evt.target.value
+			query: event.target.value
 		});
 	}
 
-	handleSubmit(evt) {
-		evt.preventDefault();
+	handleSubmit(event) {
+		event.preventDefault();
 		const query = this.state.query;
 		this.searchFreesound(query);
 	}
