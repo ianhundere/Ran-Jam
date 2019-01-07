@@ -43,7 +43,6 @@ class Sample extends Component {
 				<h1>SAMPLE</h1>
 				<div>
 					<form onSubmit={this.handleSubmit}>
-						<button>Search</button>
 						<input type="text" onChange={this.handleChange} placeholder="Search Freesound.org" />
 						<button className="pure-button">Search</button>
 					</form>

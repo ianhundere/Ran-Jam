@@ -9,7 +9,7 @@ class OctaveUp extends Component {
 	handleClick() {
 		let inst = this.props.inst;
 		let synth = this.props.synth;
-		this.props.octaveHandler(inst, 1200);
+		this.props.octaveHandler(inst, 1200, synth);
 	}
 
 	render() {

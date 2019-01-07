@@ -1,17 +1,24 @@
+@font-face {
+	font-family: 'SEGA LOGO FONT';
+	font-style: normal;
+	font-weight: normal;
+	src: local('SEGA LOGO FONT'), url('SEGA.woff') format('woff');
+}
+
 h1 {
 	padding: 30px;
 }
 
 .App {
 	text-align: center;
-	font-family: 'VT323', monospace;
+	font-family: 'SEGA LOGO FONT';
+	font-weight: 200;
 	font-size: 1.2em;
 }
 
 .instrument {
 	background-color: grey;
 	text-align: center;
-	height: 500px;
 	width: 400px;
 	margin: 0 auto;
 	border-radius: 10px;
