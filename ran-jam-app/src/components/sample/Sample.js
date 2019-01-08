@@ -20,7 +20,6 @@ class Sample extends Component {
 		this.handleSubmit = this._handleSubmit;
 		this.searchFreesound = this._searchFreesound;
 		this.handleClick = this._handleClick;
-		this.sliderChange = this._sliderChange;
 	}
 
 	_handleChange = (event) => {
@@ -35,10 +34,6 @@ class Sample extends Component {
 		} else {
 			sampleInstrument.set({ reverse: true });
 		}
-	}
-
-	_sliderChange(event) {
-		console.log(event.target);
 	}
 
 	_handleSubmit = (event) => {
@@ -70,7 +65,7 @@ class Sample extends Component {
 					</button>
 				</div>
 				<div>
-					Speed: <CustomSlider />
+					Speed: <CustomSlider value={this.props.value} setSliderVal={this.props.setSliderVal} />
 				</div>
 				<StartButton startClickHandler={this.props.startClickHandler} pattern={this.state.samplePattern} />
 				<StopButton stopClickHandler={this.props.stopClickHandler} pattern={this.state.samplePattern} />

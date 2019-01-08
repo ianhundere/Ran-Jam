@@ -20,6 +20,7 @@ class App extends Component {
 			melodyDetune: 0,
 			chordsDetune: 0,
 			sampleUrl: null,
+			sliderVal: 0,
 			key: [],
 			newKeys: [],
 			oldKeys: []
@@ -31,6 +32,7 @@ class App extends Component {
 		this.octaveHandler = this._octaveHandler;
 		this.setUrl = this._setUrl;
 		this.changeWave = this._changeWave;
+		this.setSliderVal = this._setSliderVal;
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -159,6 +161,12 @@ class App extends Component {
 		instrument.set({ oscillator: { type: wave } });
 	}
 
+	_setSliderVal = (val) => {
+		this.setState({
+			sliderVal: val
+		});
+	};
+
 	render() {
 		let partial;
 		if (this.state.currentPage === 'SAMPLE') {
@@ -168,6 +176,8 @@ class App extends Component {
 					stopClickHandler={this.stopClickHandler}
 					setResults={this.setResults}
 					url={this.state.sampleUrl}
+					setSliderVal={this.setSliderVal}
+					value={this.state.sliderVal}
 				/>
 			);
 		} else if (this.state.currentPage === 'MELODY') {
