@@ -6,7 +6,8 @@ class NavLink extends Component {
 		this.handleNavClick = this.handleNavClick;
 	}
 
-	handleNavClick = () => {
+	handleNavClick = (e) => {
+		e.preventDefault();
 		let name = this.props.link;
 		this.props.handleClick(name);
 	};

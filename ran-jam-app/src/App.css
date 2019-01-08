@@ -15,9 +15,22 @@ ul {
 
 .App {
 	text-align: center;
-	font-family: 'SEGA LOGO FONT';
+	font-family: 'PT Sans', sans-serif;
 	font-weight: 200;
 	font-size: 1.2em;
+}
+
+.pure-menu {
+	font-family: 'SEGA LOGO FONT', monospace;
+	text-align: center;
+}
+
+.pure-menu-link {
+	padding: 40px;
+}
+
+.pure-menu-link:hover {
+	color: hotpink;
 }
 
 .instrument {

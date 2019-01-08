@@ -1,10 +1,11 @@
 import React from 'react';
+import './results.css';
 
 const Results = ({ results, setUrl }) => {
 	const samples = results.map((res) => {
 		const url = res.previews['preview-hq-mp3'];
 		return (
-			<li key={res.name}>
+			<div className="sample" key={res.name}>
 				{res.name}{' '}
 				<button
 					className="pure-button"
@@ -14,12 +15,13 @@ const Results = ({ results, setUrl }) => {
 				>
 					LOAD
 				</button>
-			</li>
+				{res.name}
+			</div>
 		);
 	});
 
 	return (
-		<div>
+		<div className="results">
 			<h1>Search Results:</h1>
 			<ul>{samples}</ul>
 		</div>
