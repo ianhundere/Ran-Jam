@@ -1,6 +1,6 @@
 import Tone from 'tone';
 
-let sample = 'https://freesound.org/data/previews/353/353194_5121236-hq.mp3';
+let sample = 'https://freesound.org/data/previews/277/277593_5324256-hq.mp3';
 
 let sampleInstrument = new Tone.GrainPlayer(sample, function() {
 	sampleInstrument.grainSize = 0.2;

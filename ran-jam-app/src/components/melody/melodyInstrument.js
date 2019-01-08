@@ -20,7 +20,8 @@ var melodySynth = new Tone.MonoSynth({
 		baseFrequency: 1000,
 		octaves: 7,
 		exponent: 0
-	}
+	},
+	volume: -20
 }).chain(delay);
 
 let melodyPattern = new Tone.Pattern(

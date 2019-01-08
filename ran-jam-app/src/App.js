@@ -6,6 +6,7 @@ import './App.css';
 import Chords from './components/chords/Chords';
 import Melody from './components/melody/Melody';
 import Sample from './components/sample/Sample';
+import SampleInstrument from './components/sample/SampleInstrument';
 import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Nav from './components/nav/Nav';
@@ -18,6 +19,7 @@ class App extends Component {
 			searchResults: null,
 			melodyDetune: 0,
 			chordsDetune: 0,
+			sampleUrl: null,
 			key: [],
 			newKeys: [],
 			oldKeys: []
@@ -27,6 +29,7 @@ class App extends Component {
 		this.startClickHandler = this._startClickHandler.bind(this);
 		this.stopClickHandler = this._stopClickHandler.bind(this);
 		this.octaveHandler = this._octaveHandler.bind(this);
+		this.setUrl = this._setUrl.bind(this);
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -122,6 +125,15 @@ class App extends Component {
 		});
 	}
 
+	_setUrl(url) {
+		this.setState({
+			sampleUrl: url
+		});
+		const buffer = new Tone.Buffer(url, () => {
+			SampleInstrument.set({ buffer: buffer });
+		});
+	}
+
 	_startClickHandler(pattern) {
 		pattern.start();
 	}
@@ -150,6 +162,7 @@ class App extends Component {
 					startClickHandler={this.startClickHandler}
 					stopClickHandler={this.stopClickHandler}
 					setResults={this.setResults}
+					url={this.state.sampleUrl}
 				/>
 			);
 		} else if (this.state.currentPage === 'MELODY') {
@@ -162,7 +175,7 @@ class App extends Component {
 				/>
 			);
 		} else if (this.state.currentPage === 'RESULTS') {
-			partial = <Results results={this.state.searchResults} />;
+			partial = <Results results={this.state.searchResults} setUrl={this.setUrl} />;
 		} else if (this.state.currentPage === 'PIANO') {
 			partial = (
 				<Piano

@@ -4,6 +4,7 @@ import StartButton from '../buttons/StartButton';
 import StopButton from '../buttons/StopButton';
 import SearchButton from '../buttons/SearchButton';
 import sampleInstrument from './SampleInstrument';
+import { secretStuff } from './config.js';
 
 class Sample extends Component {
 	constructor() {
@@ -30,8 +31,7 @@ class Sample extends Component {
 	}
 
 	searchFreesound(query) {
-		const token = 'API_KEY_GOES_HERE';
-		const url = `http://www.freesound.org/apiv2/search/text/?query=${query}&fields=name,previews&token=${token}`;
+		const url = `http://www.freesound.org/apiv2/search/text/?query=${query}&fields=name,previews&token=${secretStuff.FREESOUND_TOKEN}`;
 		fetch(url).then((res) => res.json()).then((res) => {
 			this.props.setResults(res.results);
 		});

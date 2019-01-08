@@ -31,7 +31,7 @@ class Piano extends Component {
 				octaves: 7,
 				exponent: 0
 			},
-			volume: 0
+			volume: -20
 		}).chain(delay);
 	}
 
