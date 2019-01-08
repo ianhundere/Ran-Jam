@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 
 import StartButton from '../buttons/StartButton';
 import StopButton from '../buttons/StopButton';
-import SearchButton from '../buttons/SearchButton';
+import OctaveDown from '../buttons/OctaveDown';
+import OctaveUp from '../buttons/OctaveUp';
+import CustomSlider from '../buttons/CustomSlider';
 import sampleInstrument from './SampleInstrument';
+import './sampler.css';
 import { secretStuff } from './config.js';
 
 class Sample extends Component {
@@ -16,6 +19,8 @@ class Sample extends Component {
 		this.handleChange = this._handleChange;
 		this.handleSubmit = this._handleSubmit;
 		this.searchFreesound = this._searchFreesound;
+		this.handleClick = this._handleClick;
+		this.sliderChange = this._sliderChange;
 	}
 
 	_handleChange = (event) => {
@@ -23,6 +28,18 @@ class Sample extends Component {
 			query: event.target.value
 		});
 	};
+
+	_handleClick() {
+		if (sampleInstrument.reverse) {
+			sampleInstrument.set({ reverse: false });
+		} else {
+			sampleInstrument.set({ reverse: true });
+		}
+	}
+
+	_sliderChange(event) {
+		console.log(event.target);
+	}
 
 	_handleSubmit = (event) => {
 		event.preventDefault();
@@ -39,13 +56,21 @@ class Sample extends Component {
 
 	render() {
 		return (
-			<div className="instrument">
+			<div className="instrument sampler">
 				<h1>SAMPLE</h1>
 				<div>
 					<form onSubmit={this.handleSubmit}>
 						<input type="text" onChange={this.handleChange} placeholder="Search Freesound.org" />
 						<button className="pure-button">Search</button>
 					</form>
+				</div>
+				<div>
+					<button className="pure-button" onClick={this.handleClick}>
+						Reverse
+					</button>
+				</div>
+				<div>
+					Speed: <CustomSlider />
 				</div>
 				<StartButton startClickHandler={this.props.startClickHandler} pattern={this.state.samplePattern} />
 				<StopButton stopClickHandler={this.props.stopClickHandler} pattern={this.state.samplePattern} />

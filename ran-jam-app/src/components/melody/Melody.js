@@ -6,6 +6,7 @@ import WaveButton from '../buttons/WaveButton';
 import OctaveUp from '../buttons/OctaveUp';
 import OctaveDown from '../buttons/OctaveDown';
 import { melodySynth, melodyPattern } from './melodyInstrument';
+import './melody.css';
 
 class Melody extends Component {
 	constructor() {
@@ -18,7 +19,7 @@ class Melody extends Component {
 	render() {
 		melodySynth.set({ detune: this.props.detune });
 		return (
-			<div className="instrument">
+			<div className="instrument melody">
 				<h1>MELODY</h1>
 				<div>
 					Octave:

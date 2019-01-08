@@ -34,11 +34,15 @@ ul {
 }
 
 .instrument {
-	background-color: grey;
+	background-color: #8389a3;
 	text-align: center;
 	width: 400px;
 	margin: 0 auto;
 	border-radius: 10px;
+}
+
+.pure-menu-selected {
+	color: hotpink;
 }
 
 input {

@@ -1,0 +1,15 @@
+.results {
+	width: 400px;
+	margin: 0 auto;
+}
+
+.sample {
+	background-color: #cbb274;
+	margin: 10px;
+	padding: 5px;
+	border-radius: 7px;
+}
+
+.sampler {
+	background-color: #cbb274;
+}
