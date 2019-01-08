@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class NavLink extends Component {
 	constructor() {
 		super();
-		this.handleNavClick = this.handleNavClick;
+		this.handleNavClick = this._handleNavClick;
 	}
 
-	handleNavClick = (e) => {
+	_handleNavClick = (e) => {
 		e.preventDefault();
 		let name = this.props.link;
 		this.props.handleClick(name);

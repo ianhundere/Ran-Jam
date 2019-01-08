@@ -36,10 +36,12 @@ class Piano extends Component {
 	}
 
 	noteOn = (note) => {
-		this.setState({ currentNotes: [ ...this.state.currentNotes, note ] }, () => {
-			this.synth.triggerAttackRelease(note);
-			console.log(note);
-		});
+		if (!this.state.currentNotes.includes(note)) {
+			this.setState({ currentNotes: [ ...this.state.currentNotes, note ] }, () => {
+				this.synth.triggerAttackRelease(note);
+				console.log(note);
+			});
+		}
 	};
 	noteOff = (note) => {
 		this.setState(

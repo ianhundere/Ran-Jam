@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class StopButton extends Component {
 	constructor() {
 		super();
-		this.handleClick = this.handleClick;
+		this.handleClick = this._handleClick;
 	}
 
-	handleClick = () => {
+	_handleClick = () => {
 		let pattern = this.props.pattern;
 		this.props.stopClickHandler(pattern);
 	};

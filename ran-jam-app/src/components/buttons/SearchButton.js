@@ -3,10 +3,10 @@ import React, { Component } from 'react';
 class SearchButton extends Component {
 	constructor() {
 		super();
-		this.handleClick = this.handleClick;
+		this.handleClick = this._handleClick;
 	}
 
-	handleClick = () => {};
+	_handleClick = () => {};
 
 	render() {
 		return (
