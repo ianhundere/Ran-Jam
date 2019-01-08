@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "dotenv-webpack": "^1.6.0",
     "express": "^4.16.4",
     "rc-slider": "^8.6.4",
     "react": "^16.7.0",
