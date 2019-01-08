@@ -19,8 +19,10 @@ class App extends Component {
 			searchResults: null,
 			melodyDetune: 0,
 			chordsDetune: 0,
-			sampleUrl: null,
-			sliderVal: 0,
+			sample: {
+				detune: 0,
+				url: null
+			},
 			key: [],
 			newKeys: [],
 			oldKeys: []
@@ -33,6 +35,7 @@ class App extends Component {
 		this.setUrl = this._setUrl;
 		this.changeWave = this._changeWave;
 		this.setSliderVal = this._setSliderVal;
+		this.testServer = this._testServer;
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -167,6 +170,10 @@ class App extends Component {
 		});
 	};
 
+	_testServer() {
+		fetch('/test').then((res) => console.log(res));
+	}
+
 	render() {
 		let partial;
 		if (this.state.currentPage === 'SAMPLE') {
@@ -219,6 +226,9 @@ class App extends Component {
 			<div className="App">
 				<Nav handleClick={this.setPage} />
 				{partial}
+				<button className="pure-button" onClick={this.testServer}>
+					Save
+				</button>
 			</div>
 		);
 	}
