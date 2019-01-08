@@ -13,29 +13,29 @@ class Sample extends Component {
 			samplePattern: sampleInstrument,
 			query: ''
 		};
-		this.handleChange = this.handleChange.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.searchFreesound = this.searchFreesound.bind(this);
+		this.handleChange = this.handleChange;
+		this.handleSubmit = this.handleSubmit;
+		this.searchFreesound = this.searchFreesound;
 	}
 
-	handleChange(event) {
+	handleChange = (event) => {
 		this.setState({
 			query: event.target.value
 		});
-	}
+	};
 
-	handleSubmit(event) {
+	handleSubmit = (event) => {
 		event.preventDefault();
 		const query = this.state.query;
 		this.searchFreesound(query);
-	}
+	};
 
-	searchFreesound(query) {
+	searchFreesound = (query) => {
 		const url = `http://www.freesound.org/apiv2/search/text/?query=${query}&fields=name,previews&token=${secretStuff.FREESOUND_TOKEN}`;
 		fetch(url).then((res) => res.json()).then((res) => {
 			this.props.setResults(res.results);
 		});
-	}
+	};
 
 	render() {
 		return (

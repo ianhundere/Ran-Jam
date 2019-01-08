@@ -24,12 +24,12 @@ class App extends Component {
 			newKeys: [],
 			oldKeys: []
 		};
-		this.setPage = this._setPage.bind(this);
-		this.setResults = this._setResults.bind(this);
-		this.startClickHandler = this._startClickHandler.bind(this);
-		this.stopClickHandler = this._stopClickHandler.bind(this);
-		this.octaveHandler = this._octaveHandler.bind(this);
-		this.setUrl = this._setUrl.bind(this);
+		this.setPage = this._setPage;
+		this.setResults = this._setResults;
+		this.startClickHandler = this._startClickHandler;
+		this.stopClickHandler = this._stopClickHandler;
+		this.octaveHandler = this._octaveHandler;
+		this.setUrl = this._setUrl;
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -112,37 +112,37 @@ class App extends Component {
 		});
 	}
 
-	_setResults(results) {
+	_setResults = (results) => {
 		this.setState({
 			searchResults: results,
 			currentPage: 'RESULTS'
 		});
-	}
+	};
 
-	_setPage(page) {
+	_setPage = (page) => {
 		this.setState({
 			currentPage: page
 		});
-	}
+	};
 
-	_setUrl(url) {
+	_setUrl = (url) => {
 		this.setState({
 			sampleUrl: url
 		});
 		const buffer = new Tone.Buffer(url, () => {
 			SampleInstrument.set({ buffer: buffer });
 		});
-	}
+	};
 
-	_startClickHandler(pattern) {
+	_startClickHandler = (pattern) => {
 		pattern.start();
-	}
+	};
 
-	_stopClickHandler(pattern) {
+	_stopClickHandler = (pattern) => {
 		pattern.stop();
-	}
+	};
 
-	_octaveHandler(inst, val, synth) {
+	_octaveHandler = (inst, val, synth) => {
 		if (synth === 'melody') {
 			this.setState({
 				melodyDetune: this.state.melodyDetune + val
@@ -152,7 +152,7 @@ class App extends Component {
 				chordsDetune: this.state.chordsDetune + val
 			});
 		}
-	}
+	};
 
 	render() {
 		let partial;

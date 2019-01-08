@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 class NavLink extends Component {
 	constructor() {
 		super();
-		this.handleNavClick = this.handleNavClick.bind(this);
+		this.handleNavClick = this.handleNavClick;
 	}
 
-	handleNavClick() {
+	handleNavClick = () => {
 		let name = this.props.link;
 		this.props.handleClick(name);
-	}
+	};
 
 	render() {
 		return (
