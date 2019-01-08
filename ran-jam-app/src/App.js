@@ -30,6 +30,7 @@ class App extends Component {
 		this.stopClickHandler = this._stopClickHandler;
 		this.octaveHandler = this._octaveHandler;
 		this.setUrl = this._setUrl;
+		this.changeWave = this._changeWave;
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -154,6 +155,10 @@ class App extends Component {
 		}
 	};
 
+	_changeWave(wave, instrument) {
+		instrument.set({ oscillator: { type: wave } });
+	}
+
 	render() {
 		let partial;
 		if (this.state.currentPage === 'SAMPLE') {
@@ -172,6 +177,7 @@ class App extends Component {
 					stopClickHandler={this.stopClickHandler}
 					octaveHandler={this.octaveHandler}
 					detune={this.state.melodyDetune}
+					changeWave={this.changeWave}
 				/>
 			);
 		} else if (this.state.currentPage === 'RESULTS') {
@@ -195,6 +201,7 @@ class App extends Component {
 					stopClickHandler={this.stopClickHandler}
 					octaveHandler={this.octaveHandler}
 					detune={this.state.chordsDetune}
+					changeWave={this.changeWave}
 				/>
 			);
 		}

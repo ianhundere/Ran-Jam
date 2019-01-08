@@ -11,7 +11,7 @@ function randomChord(randomIndex) {
 	return chordList[i];
 }
 
-var chordSynth = new Tone.PolySynth(8, Tone.FMSynth).chain(delay);
+var chordSynth = new Tone.PolySynth(8, Tone.Synth).chain(delay);
 
 chordSynth.set({
 	envelope: {
