@@ -35,7 +35,8 @@ class App extends Component {
 		this.setUrl = this._setUrl;
 		this.changeWave = this._changeWave;
 		this.setSliderVal = this._setSliderVal;
-		this.testServer = this._testServer;
+		// this.testServer = this._testServer;
+		this.handleSave = this._handleSave;
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -88,7 +89,9 @@ class App extends Component {
 	}
 
 	componentDidMount() {
+		Tone.Transport.bpm.value = 60;
 		Tone.Transport.start();
+
 		document.addEventListener('keydown', (e) => {
 			let key = this.keyTranslation[e.key];
 			console.log(key);
@@ -118,6 +121,29 @@ class App extends Component {
 		});
 	}
 
+	_insertKey = (key) => {
+		this.setState({
+			newKeys: this.state.newKeys.filter((note) => {
+				if (note === key) {
+					return false;
+				} else {
+					return true;
+				}
+			})
+		});
+	};
+	_extractKey = (key) => {
+		this.setState({
+			oldKeys: this.state.oldKeys.filter((note) => {
+				if (note === key) {
+					return false;
+				} else {
+					return true;
+				}
+			})
+		});
+	};
+
 	_setResults = (results) => {
 		this.setState({
 			searchResults: results,
@@ -133,11 +159,25 @@ class App extends Component {
 
 	_setUrl = (url) => {
 		this.setState({
-			sampleUrl: url
+			sample: {
+				...this.state.sample,
+				url: url
+			}
 		});
 		const buffer = new Tone.Buffer(url, () => {
 			SampleInstrument.set({ buffer: buffer });
 		});
+	};
+
+	_handleSave = () => {
+		fetch('/save', {
+			method: 'PUT',
+			headers: {
+				Accept: 'application/json',
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(this.state)
+		}).then(console.log('song is saved!'));
 	};
 
 	_startClickHandler = (pattern) => {
@@ -166,15 +206,19 @@ class App extends Component {
 
 	_setSliderVal = (val) => {
 		this.setState({
-			sliderVal: val
+			sample: {
+				...this.state.sample,
+				detune: val
+			}
 		});
 	};
 
-	_testServer() {
-		fetch('/test').then((res) => console.log(res));
-	}
+	// _testServer() {
+	// 	fetch('/test').then((res) => console.log(res));
+	// }
 
 	render() {
+		const { sample } = this.state;
 		let partial;
 		if (this.state.currentPage === 'SAMPLE') {
 			partial = (
@@ -182,9 +226,9 @@ class App extends Component {
 					startClickHandler={this.startClickHandler}
 					stopClickHandler={this.stopClickHandler}
 					setResults={this.setResults}
-					url={this.state.sampleUrl}
+					url={sample.url}
 					setSliderVal={this.setSliderVal}
-					value={this.state.sliderVal}
+					value={sample.detune}
 				/>
 			);
 		} else if (this.state.currentPage === 'MELODY') {
@@ -226,34 +270,12 @@ class App extends Component {
 			<div className="App">
 				<Nav handleClick={this.setPage} />
 				{partial}
-				<button className="pure-button" onClick={this.testServer}>
-					Save
+				<button className="pure-button" onClick={this.handleSave}>
+					SAVE
 				</button>
 			</div>
 		);
 	}
-	_insertKey = (key) => {
-		this.setState({
-			newKeys: this.state.newKeys.filter((note) => {
-				if (note === key) {
-					return false;
-				} else {
-					return true;
-				}
-			})
-		});
-	};
-	_extractKey = (key) => {
-		this.setState({
-			oldKeys: this.state.oldKeys.filter((note) => {
-				if (note === key) {
-					return false;
-				} else {
-					return true;
-				}
-			})
-		});
-	};
 }
 
 export default App;

@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 
 import StartButton from '../buttons/StartButton';
 import StopButton from '../buttons/StopButton';
-import OctaveDown from '../buttons/OctaveDown';
-import OctaveUp from '../buttons/OctaveUp';
 import CustomSlider from '../buttons/CustomSlider';
 import sampleInstrument from './SampleInstrument';
 import './sampler.css';
