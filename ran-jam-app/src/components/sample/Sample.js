@@ -41,7 +41,7 @@ class Sample extends Component {
 	};
 
 	_searchFreesound = (query) => {
-		const url = `http://www.freesound.org/apiv2/search/text/?query=${query}&fields=name,previews&token=${secretStuff.FREESOUND_TOKEN}`;
+		const url = `https://www.freesound.org/apiv2/search/text/?query=${query}&fields=name,previews&token=${secretStuff.FREESOUND_TOKEN}`;
 		fetch(url).then((res) => res.json()).then((res) => {
 			this.props.setResults(res.results);
 		});

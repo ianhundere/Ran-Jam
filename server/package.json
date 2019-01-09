@@ -1,0 +1,20 @@
+{
+	"name": "ran-jam_app_server",
+	"version": "1.0.0",
+	"main": "server.js",
+	"dependencies": {
+		"dotenv": "^6.2.0",
+		"express": "^4.16.4",
+		"helmet": "^3.15.0",
+		"mongoose": "^5.4.2",
+		"morgan": "^1.9.1",
+		"path": "^0.12.7",
+		"request": "^2.88.0"
+	},
+	"devDependencies": {
+		"nodemon": "^1.18.9"
+	},
+	"scripts": {
+		"dev": "nodemon index.js"
+	}
+}
