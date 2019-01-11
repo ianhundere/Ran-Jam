@@ -36,6 +36,7 @@ class App extends Component {
 		this.changeWave = this._changeWave;
 		this.setSliderVal = this._setSliderVal;
 		// this.testServer = this._testServer;
+		this.setBuffer = this._setBuffer;
 		this.handleSave = this._handleSave;
 		this.keyTranslation = {
 			z: 'C4 : Z',
@@ -157,16 +158,21 @@ class App extends Component {
 		});
 	};
 
+	_setBuffer(url) {
+		const buffer = new Tone.Buffer(url, () => {
+			SampleInstrument.set({ buffer: buffer });
+		});
+	}
+
 	_setUrl = (url) => {
+		console.log(url);
 		this.setState({
 			sample: {
 				...this.state.sample,
 				url: url
 			}
 		});
-		const buffer = new Tone.Buffer(url, () => {
-			SampleInstrument.set({ buffer: buffer });
-		});
+		this.setBuffer(url);
 	};
 
 	_handleSave = () => {
@@ -228,7 +234,8 @@ class App extends Component {
 					setResults={this.setResults}
 					url={sample.url}
 					setSliderVal={this.setSliderVal}
-					value={sample.detune}
+					detuneVal={sample.detune}
+					setBuffer={this.setBuffer}
 				/>
 			);
 		} else if (this.state.currentPage === 'MELODY') {

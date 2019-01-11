@@ -6,7 +6,6 @@ const Results = ({ results, setUrl }) => {
 		const url = res.previews['preview-hq-mp3'];
 		return (
 			<div className="sample" key={res.name}>
-				{res.name}{' '}
 				<button
 					className="pure-button"
 					onClick={() => {

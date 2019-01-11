@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Song = require('../models/Song');
 const mongoose = require('mongoose');
+mongoose.set('useFindAndModify', false);
 
 router.get('/songs', (req, res) => {
 	Song.find({}, (err, songs) => {

@@ -20,6 +20,14 @@ class Sample extends Component {
 		this.handleClick = this._handleClick;
 	}
 
+	componentDidMount() {
+		console.log(this.props.url);
+		sampleInstrument.set({
+			detune: this.props.detuneVal
+		});
+		this.props.setBuffer(this.props.url);
+	}
+
 	_handleChange = (event) => {
 		this.setState({
 			query: event.target.value
@@ -63,7 +71,7 @@ class Sample extends Component {
 					</button>
 				</div>
 				<div>
-					Speed: <CustomSlider value={this.props.value} setSliderVal={this.props.setSliderVal} />
+					Speed: <CustomSlider value={this.props.detuneVal} setSliderVal={this.props.setSliderVal} />
 				</div>
 				<StartButton startClickHandler={this.props.startClickHandler} pattern={this.state.samplePattern} />
 				<StopButton stopClickHandler={this.props.stopClickHandler} pattern={this.state.samplePattern} />
