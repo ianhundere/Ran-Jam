@@ -16,6 +16,7 @@ class App extends Component {
 	constructor() {
 		super();
 		this.state = {
+			loggedIn: false,
 			currentPage: 'LOGIN',
 			searchResults: null,
 			melodyDetune: 0,
@@ -52,6 +53,7 @@ class App extends Component {
 		// this.testServer = this._testServer;
 		this.setBuffer = this._setBuffer;
 		this.handleSave = this._handleSave;
+		this.setLoggedIn = this._setLoggedIn;
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -106,16 +108,6 @@ class App extends Component {
 	componentDidMount() {
 		Tone.Transport.bpm.value = 60;
 		Tone.Transport.start();
-		fetch('/songs').then((song) => song.json()).then((song) => {
-			console.log(song);
-			let { chords, melody, sample, _id } = song;
-			this.setState({
-				_id: _id,
-				sample: sample[0],
-				chords: chords[0],
-				melody: melody[0]
-			});
-		});
 
 		document.addEventListener('keydown', (e) => {
 			let key = this.keyTranslation[e.key];
@@ -182,11 +174,11 @@ class App extends Component {
 		});
 	};
 
-	_setBuffer(url) {
+	_setBuffer = (url) => {
 		const buffer = new Tone.Buffer(url, () => {
 			SampleInstrument.set({ buffer: buffer });
 		});
-	}
+	};
 
 	_setUrl = (url) => {
 		console.log(url);
@@ -197,6 +189,18 @@ class App extends Component {
 			}
 		});
 		this.setBuffer(url);
+	};
+
+	_setLoggedIn = (song) => {
+		const { chords, melody, sample, _id } = song;
+		console.log(chords);
+		this.setState({
+			loggedIn: true,
+			_id: _id,
+			sample: sample[0],
+			chords: chords[0],
+			melody: melody[0]
+		});
 	};
 
 	_handleSave = () => {
@@ -218,8 +222,7 @@ class App extends Component {
 		pattern.stop();
 	};
 
-	_octaveHandler = (inst, val, synth) => {
-		console.log('val is', val);
+	_octaveHandler = (val, synth) => {
 		if (synth === 'melody') {
 			this.setState({
 				melody: {
@@ -237,9 +240,23 @@ class App extends Component {
 		}
 	};
 
-	_changeWave(wave, instrument) {
-		instrument.set({ oscillator: { type: wave } });
-	}
+	_changeWave = (wave, synth) => {
+		if (synth === 'melody') {
+			this.setState({
+				melody: {
+					...this.state.melody,
+					oscillator: { type: wave }
+				}
+			});
+		} else if (synth === 'chords') {
+			this.setState({
+				chords: {
+					...this.state.chords,
+					oscillator: { type: wave }
+				}
+			});
+		}
+	};
 
 	_setSliderVal = (val) => {
 		this.setState({
@@ -277,6 +294,7 @@ class App extends Component {
 					octaveHandler={this.octaveHandler}
 					detune={melody.detune}
 					changeWave={this.changeWave}
+					settings={melody}
 				/>
 			);
 		} else if (this.state.currentPage === 'RESULTS') {
@@ -301,21 +319,23 @@ class App extends Component {
 					octaveHandler={this.octaveHandler}
 					detune={chords.detune}
 					changeWave={this.changeWave}
+					settings={chords}
 				/>
 			);
-		} else {
-			partial = <Login />;
 		}
-
-		return (
-			<div className="App">
-				<Nav handleClick={this.setPage} />
-				{partial}
-				<button className="pure-button" onClick={this.handleSave}>
-					SAVE
-				</button>
-			</div>
-		);
+		if (this.state.loggedIn) {
+			return (
+				<div className="App">
+					<Nav handleClick={this.setPage} />
+					{partial}
+					<button className="pure-button" onClick={this.handleSave}>
+						SAVE
+					</button>
+				</div>
+			);
+		} else {
+			return <Login setLoggedIn={this.setLoggedIn} />;
+		}
 	}
 }
 

@@ -13,7 +13,7 @@ class StartButton extends Component {
 	render() {
 		return (
 			<button className="pure-button" onClick={this.handleClick}>
-				Start
+				{this.props.children}
 			</button>
 		);
 	}

@@ -34,13 +34,13 @@ class Sample extends Component {
 		});
 	};
 
-	_handleClick() {
+	_handleClick = () => {
 		if (sampleInstrument.reverse) {
 			sampleInstrument.set({ reverse: false });
 		} else {
 			sampleInstrument.set({ reverse: true });
 		}
-	}
+	};
 
 	_handleSubmit = (event) => {
 		event.preventDefault();
@@ -73,7 +73,9 @@ class Sample extends Component {
 				<div>
 					Speed: <CustomSlider value={this.props.detuneVal} setSliderVal={this.props.setSliderVal} />
 				</div>
-				<StartButton startClickHandler={this.props.startClickHandler} pattern={this.state.samplePattern} />
+				<StartButton startClickHandler={this.props.startClickHandler} pattern={this.state.samplePattern}>
+					Start
+				</StartButton>
 				<StopButton stopClickHandler={this.props.stopClickHandler} pattern={this.state.samplePattern} />
 			</div>
 		);
