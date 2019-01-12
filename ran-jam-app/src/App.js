@@ -10,12 +10,13 @@ import SampleInstrument from './components/sample/SampleInstrument';
 import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Nav from './components/nav/Nav';
+import Login from './components/login/Login';
 
 class App extends Component {
 	constructor() {
 		super();
 		this.state = {
-			currentPage: null,
+			currentPage: 'LOGIN',
 			searchResults: null,
 			melodyDetune: 0,
 			chordsDetune: 0,
@@ -103,13 +104,11 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		console.log(this.state.melody.detune);
 		Tone.Transport.bpm.value = 60;
 		Tone.Transport.start();
 		fetch('/songs').then((song) => song.json()).then((song) => {
 			console.log(song);
 			let { chords, melody, sample, _id } = song;
-			console.log(_id);
 			this.setState({
 				_id: _id,
 				sample: sample[0],
@@ -223,7 +222,6 @@ class App extends Component {
 		console.log('val is', val);
 		if (synth === 'melody') {
 			this.setState({
-				// melodyDetune: this.state.melodyDetune + val
 				melody: {
 					...this.state.melody,
 					detune: this.state.melody.detune + val
@@ -231,7 +229,6 @@ class App extends Component {
 			});
 		} else if (synth === 'chords') {
 			this.setState({
-				// chordsDetune: this.state.chordsDetune + val
 				chords: {
 					...this.state.chords,
 					detune: this.state.chords.detune + val
@@ -296,7 +293,7 @@ class App extends Component {
 					isActive={this.state.isActive}
 				/>
 			);
-		} else {
+		} else if (this.state.currentPage === 'CHORDS') {
 			partial = (
 				<Chords
 					startClickHandler={this.startClickHandler}
@@ -306,7 +303,10 @@ class App extends Component {
 					changeWave={this.changeWave}
 				/>
 			);
+		} else {
+			partial = <Login />;
 		}
+
 		return (
 			<div className="App">
 				<Nav handleClick={this.setPage} />

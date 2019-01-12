@@ -1,15 +1,17 @@
 import React from 'react';
+import sinewave from '../../sinewave.png';
 
 const WaveButton = ({ changeWave, wave, instrument }) => {
 	return (
-		<button
+		<img
+			alt="sinewave"
+			src={sinewave}
 			onClick={() => {
 				changeWave(wave, instrument);
 			}}
 			className="pure-button"
-		>
-			{wave}
-		</button>
+			id="wave-button"
+		/>
 	);
 };
 

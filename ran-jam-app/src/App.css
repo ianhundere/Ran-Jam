@@ -20,6 +20,12 @@ ul {
 	font-size: 1.2em;
 }
 
+#wave-button {
+	width: 70px;
+	height: 50px;
+	margin: 5px;
+}
+
 .pure-menu {
 	font-family: 'SEGA LOGO FONT', monospace;
 	text-align: center;
