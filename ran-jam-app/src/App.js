@@ -9,6 +9,7 @@ import Sample from './components/sample/Sample';
 import SampleInstrument from './components/sample/SampleInstrument';
 import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
+import Kick from './components/kick/Kick';
 import Nav from './components/nav/Nav';
 import Login from './components/login/Login';
 
@@ -106,7 +107,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		Tone.Transport.bpm.value = 60;
+		// Tone.Transport.bpm.value = 60;
 		Tone.Transport.start();
 
 		document.addEventListener('keydown', (e) => {
@@ -311,6 +312,8 @@ class App extends Component {
 					isActive={this.state.isActive}
 				/>
 			);
+		} else if (this.state.currentPage === 'KICK') {
+			partial = <Kick />;
 		} else if (this.state.currentPage === 'CHORDS') {
 			partial = (
 				<Chords
