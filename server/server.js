@@ -3,6 +3,7 @@ require('dotenv').config();
 // Required Modules
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser');
 const helmet = require('helmet');
 app.use(helmet());
 
@@ -12,8 +13,8 @@ const path = require('path');
 require('./db/config');
 
 app.use(morgan('dev'));
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 app.use('/', require('./routes/index'));
 app.use('/auth', require('./routes/auth'));
 
