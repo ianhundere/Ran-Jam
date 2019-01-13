@@ -46,9 +46,9 @@ class Login extends Component {
 		}
 	};
 
-	_handleGuestClick() {
+	_handleGuestClick = () => {
 		this.props.setGuest();
-	}
+	};
 
 	render() {
 		let loading;
@@ -68,12 +68,11 @@ class Login extends Component {
 						onFailure={this.responseGoogle}
 						className="pure-button"
 					/>
-					<br />
 					<label htmlFor="login">Google Login</label>
 				</div>
 				<div className={this.state.active} id="guestlogin">
 					<button className="pure-button" id="guest-btn" onClick={this.handleGuestClick}>
-						> Guest
+						Guest
 					</button>
 					<div id="guestlabel">
 						<label htmlFor="guest">

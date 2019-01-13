@@ -10,6 +10,7 @@ import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Kick from './components/kick/Kick';
 import Page from './Page';
+import Welcome from './components/welcome/Welcome';
 import Transpose from './components/controls/Transpose';
 import Waveform from './components/controls/Waveform';
 import Search from './components/controls/Search';
@@ -17,7 +18,6 @@ import Reverse from './components/controls/Reverse';
 import CustomSlider from './components/buttons/CustomSlider';
 import Nav from './components/nav/Nav';
 import Login from './components/login/Login';
-import SaveButton from './components/buttons/SaveButton';
 import { kickPattern } from './components/kick/kickInstrument';
 import BpmBox from './components/controls/BpmBox';
 
@@ -223,6 +223,7 @@ class App extends Component {
 		const { chords, melody, sample, _id } = song;
 		this.setState({
 			loggedIn: true,
+			currentPage: 'WELCOME',
 			_id: _id,
 			sample: sample[0],
 			chords: chords[0],
@@ -230,9 +231,10 @@ class App extends Component {
 		});
 	};
 
-	_set = () => {
+	_setGuest = () => {
 		this.setState({
-			guest: true
+			guest: true,
+			currentPage: 'WELCOME'
 		});
 	};
 
@@ -344,6 +346,8 @@ class App extends Component {
 			);
 		} else if (currentPage === 'RESULTS') {
 			partial = <Results results={searchResults} setUrl={this.setUrl} />;
+		} else if (currentPage === 'WELCOME') {
+			partial = <Welcome />;
 		} else if (this.state.currentPage === 'PIANO') {
 			partial = (
 				<div>
@@ -356,14 +360,12 @@ class App extends Component {
 						extractKey={this._extractKey}
 						isActive={this.state.isActive}
 					/>
-					<SaveButton handleSave={this.handleSave} />
 				</div>
 			);
 		} else if (this.state.currentPage === 'KICK') {
 			partial = (
 				<div>
 					<Kick {...pageProps} />;
-					<SaveButton handleSave={this.handleSave} />
 				</div>
 			);
 		} else if (currentPage === 'CHORDS') {
@@ -397,11 +399,6 @@ class App extends Component {
 				<div className="App">
 					<Nav handleClick={this.setPage} />
 					{partial}
-					<div className="save-button">
-						<button className="pure-button" onClick={this.handleSave}>
-							SAVE
-						</button>
-					</div>
 				</div>
 			);
 		} else {
