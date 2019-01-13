@@ -1,19 +1,11 @@
 import React from 'react';
 import Transport from './components/controls/Transport';
 import SaveButton from './components/buttons/SaveButton';
-
-const Page = ({
-	header,
-	color,
-	children,
-	startClickHandler,
-	stopClickHandler,
-	pattern,
-	startText,
-	stopText,
-	mode,
-	handleSave
-}) => {
+const Page = ({ header, color, children, startClickHandler, stopClickHandler, pattern, mode, handleSave, guest }) => {
+	let save;
+	if (!guest) {
+		save = <SaveButton handleSave={handleSave} />;
+	}
 	return (
 		<div>
 			<div className="instrument" style={{ backgroundColor: color }}>
@@ -25,12 +17,10 @@ const Page = ({
 					handleStart={startClickHandler}
 					handleStop={stopClickHandler}
 					pattern={pattern}
-					startText={startText}
-					stopText={stopText}
 					mode={mode}
 				/>
 			</div>
-			<SaveButton handleSave={handleSave} />
+			{save}
 		</div>
 	);
 };

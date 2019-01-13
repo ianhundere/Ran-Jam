@@ -3,28 +3,30 @@ import Tone from 'tone';
 import './pure-min.css';
 import './App.css';
 
-import Chords from './components/chords/Chords';
 import { chordSynth, chordPattern } from './components/chords/chordInstrument';
-import Melody from './components/melody/Melody';
 import { melodySynth, melodyPattern } from './components/melody/melodyInstrument';
-import Sample from './components/sample/Sample';
-import SampleInstrument from './components/sample/SampleInstrument';
+import sampleInstrument from './components/sample/SampleInstrument';
 import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Kick from './components/kick/Kick';
-import Global from './components/global/Global';
 import Page from './Page';
 import Transpose from './components/controls/Transpose';
 import Waveform from './components/controls/Waveform';
+import Search from './components/controls/Search';
+import Reverse from './components/controls/Reverse';
+import CustomSlider from './components/buttons/CustomSlider';
 import Nav from './components/nav/Nav';
 import Login from './components/login/Login';
 import SaveButton from './components/buttons/SaveButton';
+import { kickPattern } from './components/kick/kickInstrument';
+import BpmBox from './components/controls/BpmBox';
 
 class App extends Component {
 	constructor() {
 		super();
 		this.state = {
 			loggedIn: false,
+			guest: false,
 			currentPage: 'LOGIN',
 			searchResults: null,
 			chords: {
@@ -60,6 +62,7 @@ class App extends Component {
 		this.setBuffer = this._setBuffer;
 		this.handleSave = this._handleSave;
 		this.setLoggedIn = this._setLoggedIn;
+		this.setGuest = this._setGuest;
 		this.keyTranslation = {
 			z: 'C4 : Z',
 			x: 'D4 : X',
@@ -181,7 +184,7 @@ class App extends Component {
 
 	_setBuffer = (url) => {
 		const buffer = new Tone.Buffer(url, () => {
-			SampleInstrument.set({ buffer: buffer });
+			sampleInstrument.set({ buffer: buffer });
 		});
 	};
 
@@ -224,6 +227,12 @@ class App extends Component {
 			sample: sample[0],
 			chords: chords[0],
 			melody: melody[0]
+		});
+	};
+
+	_set = () => {
+		this.setState({
+			guest: true
 		});
 	};
 
@@ -300,45 +309,36 @@ class App extends Component {
 	};
 
 	render() {
-		const { sample, chords, melody, currentPage, searchResults, loggedIn } = this.state;
-
+		const { sample, chords, melody, currentPage, searchResults, loggedIn, guest } = this.state;
+		const pageProps = {
+			startClickHandler: this.startClickHandler,
+			stopClickHandler: this.stopClickHandler,
+			handleSave: this.handleSave,
+			guest: guest
+		};
 		melodySynth.set(melody);
 		chordSynth.set(chords);
-		SampleInstrument.set({
+		sampleInstrument.set({
 			detune: sample.detune
 		});
 		this.setBuffer(sample.url);
 		let partial;
 		if (currentPage === 'SAMPLE') {
 			partial = (
-				<div>
-					<Sample
-						startClickHandler={this.startClickHandler}
-						stopClickHandler={this.stopClickHandler}
-						setResults={this.setResults}
-						url={sample.url}
-						setSliderVal={this.setSliderVal}
-						detuneVal={sample.detune}
-						setBuffer={this.setBuffer}
-						setReverse={this.setReverse}
-					/>
-					<SaveButton handleSave={this.handleSave} />
-				</div>
+				<Page header="S A M P L E" color="#CBB274" pattern={sampleInstrument} {...pageProps}>
+					<Search setResults={this.setResults} />
+					<Reverse setReverse={this.setReverse} />
+					<CustomSlider value={sample.detune} setSliderVal={this.setSliderVal}>
+						Speed:
+					</CustomSlider>
+				</Page>
 			);
 		} else if (currentPage === 'MELODY') {
 			partial = (
-				<Page
-					header="M E L O D Y"
-					color="#C16F7A"
-					startClickHandler={this.startClickHandler}
-					stopClickHandler={this.stopClickHandler}
-					handleSave={this.handleSave}
-					startText="START"
-					stopText="STOP"
-					mode="one"
-					pattern={melodyPattern}
-				>
-					<Transpose detuneHandler={this.detuneHandler} synth="melody" plus={1200} minus={-1200} />
+				<Page header="M E L O D Y" color="#C16F7A" pattern={melodyPattern} {...pageProps}>
+					<Transpose detuneHandler={this.detuneHandler} synth="melody" plus={1200} minus={-1200}>
+						Octave:
+					</Transpose>
 					<Waveform changeWave={this.changeWave} synth="melody" />
 				</Page>
 			);
@@ -362,41 +362,37 @@ class App extends Component {
 		} else if (this.state.currentPage === 'KICK') {
 			partial = (
 				<div>
-					<Kick startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
+					<Kick {...pageProps} />;
 					<SaveButton handleSave={this.handleSave} />
 				</div>
 			);
 		} else if (currentPage === 'CHORDS') {
 			partial = (
-				<Page
-					header="C H O R D S"
-					color="#575F8B"
-					startClickHandler={this.startClickHandler}
-					stopClickHandler={this.stopClickHandler}
-					handleSave={this.handleSave}
-					startText="START"
-					stopText="STOP"
-					mode="one"
-					pattern={chordPattern}
-				>
-					<Transpose detuneHandler={this.detuneHandler} synth="chords" plus={1200} minus={-1200} />
+				<Page header="C H O R D S" color="#575F8B" pattern={chordPattern} {...pageProps}>
+					<Transpose detuneHandler={this.detuneHandler} synth="chords" plus={1200} minus={-1200}>
+						Octave:
+					</Transpose>
 					<Waveform changeWave={this.changeWave} synth="chords" />
 				</Page>
 			);
 		} else if (currentPage === 'GLOBAL') {
 			partial = (
-				<div>
-					<Global
-						startClickHandler={this.startClickHandler}
-						stopClickHandler={this.stopClickHandler}
-						detuneHandler={this.detuneHandler}
-					/>;
-					<SaveButton handleSave={this.handleSave} />
-				</div>
+				<Page
+					header="G L O B A L"
+					color="#7DB064"
+					pattern={[ melodyPattern, chordPattern, sampleInstrument, kickPattern ]}
+					mode="all"
+					{...pageProps}
+				>
+					<Transpose detuneHandler={this.detuneHandler} synth="all" plus={100} minus={-100}>
+						Transpose:
+					</Transpose>
+					<BpmBox>BPM: </BpmBox>
+				</Page>
 			);
 		}
 
-		if (loggedIn) {
+		if (loggedIn || guest) {
 			return (
 				<div className="App">
 					<Nav handleClick={this.setPage} />
@@ -409,7 +405,7 @@ class App extends Component {
 				</div>
 			);
 		} else {
-			return <Login setLoggedIn={this.setLoggedIn} />;
+			return <Login setLoggedIn={this.setLoggedIn} setGuest={this.setGuest} />;
 		}
 	}
 }

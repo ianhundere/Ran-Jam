@@ -7,7 +7,7 @@ import './kick.css';
 const Kick = ({ startClickHandler, stopClickHandler }) => {
 	return (
 		<div className="instrument kick">
-			<h1>KICK</h1>
+			<h1>K I C K</h1>
 			<Transport
 				handleStart={startClickHandler}
 				handleStop={stopClickHandler}

@@ -1,14 +1,14 @@
 import React from 'react';
 import TransportButton from '../buttons/TransportButton';
 
-const Transport = ({ handleStart, handleStop, pattern, startText, stopText, mode }) => {
+const Transport = ({ handleStart, handleStop, pattern, mode }) => {
 	return (
 		<div>
 			<TransportButton handleClick={handleStart} pattern={pattern} mode={mode}>
-				{startText}
+				START
 			</TransportButton>
 			<TransportButton handleClick={handleStop} pattern={pattern} mode={mode}>
-				{stopText}
+				STOP
 			</TransportButton>
 		</div>
 	);

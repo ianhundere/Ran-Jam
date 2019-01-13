@@ -81,7 +81,7 @@ class Piano extends Component {
 			));
 			return (
 				<div className="instrument">
-					<h1>PIANO</h1>
+					<h1>P I A N O</h1>
 					<div className="container" ref={(node) => node && node.setAttribute('touch-action', 'none')}>
 						{keyList}
 					</div>

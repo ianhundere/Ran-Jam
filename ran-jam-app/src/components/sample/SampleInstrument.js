@@ -6,7 +6,7 @@ let sampleInstrument = new Tone.GrainPlayer(sample, () => {
 	sampleInstrument.grainSize = 0.2;
 	sampleInstrument.overlap = 0.4;
 	sampleInstrument.drift = 0.2;
-	sampleInstrument.set({ volume: -5 });
+	sampleInstrument.set({ volume: 0 });
 	sampleInstrument.loop = true;
 }).toMaster();
 
