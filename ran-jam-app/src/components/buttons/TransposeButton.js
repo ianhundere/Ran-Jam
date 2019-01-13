@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 class TransposeButton extends Component {
 	constructor() {
 		super();
-		this.handleClick = this._handleClick;
+		this._handleClick = this.handleClick;
 	}
 
 	_handleClick = () => {

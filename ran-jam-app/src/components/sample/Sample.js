@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import StartButton from '../buttons/StartButton';
-import StopButton from '../buttons/StopButton';
+import Transport from '../controls/Transport';
 import CustomSlider from '../buttons/CustomSlider';
 import sampleInstrument from './SampleInstrument';
 import './sampler.css';
@@ -11,7 +10,6 @@ class Sample extends Component {
 	constructor() {
 		super();
 		this.state = {
-			samplePattern: sampleInstrument,
 			query: ''
 		};
 		this.handleChange = this._handleChange;
@@ -51,6 +49,7 @@ class Sample extends Component {
 	};
 
 	render() {
+		const { detuneVal, setSliderVal, startClickHandler, stopClickHandler } = this.props;
 		return (
 			<div className="instrument sampler">
 				<h1>SAMPLE</h1>
@@ -66,12 +65,16 @@ class Sample extends Component {
 					</button>
 				</div>
 				<div>
-					Speed: <CustomSlider value={this.props.detuneVal} setSliderVal={this.props.setSliderVal} />
+					Speed: <CustomSlider value={detuneVal} setSliderVal={setSliderVal} />
 				</div>
-				<StartButton startClickHandler={this.props.startClickHandler} pattern={this.state.samplePattern}>
-					Start
-				</StartButton>
-				<StopButton stopClickHandler={this.props.stopClickHandler} pattern={this.state.samplePattern} />
+				<Transport
+					handleStart={startClickHandler}
+					handleStop={stopClickHandler}
+					pattern={sampleInstrument}
+					startText="START"
+					stopText="STOP"
+					mode="one"
+				/>
 			</div>
 		);
 	}
