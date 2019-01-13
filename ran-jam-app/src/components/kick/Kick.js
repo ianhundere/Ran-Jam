@@ -9,7 +9,7 @@ class Kick extends Component {
 	constructor() {
 		super();
 		this.state = {
-			text: '120',
+			text: '60',
 			kickPattern: kickPattern
 		};
 	}

@@ -107,7 +107,7 @@ class App extends Component {
 	}
 
 	componentDidMount() {
-		// Tone.Transport.bpm.value = 60;
+		Tone.Transport.bpm.value = 60;
 		Tone.Transport.start();
 
 		document.addEventListener('keydown', (e) => {
