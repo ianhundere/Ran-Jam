@@ -313,7 +313,7 @@ class App extends Component {
 				/>
 			);
 		} else if (this.state.currentPage === 'KICK') {
-			partial = <Kick />;
+			partial = <Kick startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
 		} else if (this.state.currentPage === 'CHORDS') {
 			partial = (
 				<Chords

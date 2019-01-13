@@ -1,28 +1,18 @@
 import React, { Component } from 'react';
-import soundfile from './sounds/housedrop.wav';
-
 import Tone from 'tone';
 
+import StartButton from '../buttons/StartButton';
+import StopButton from '../buttons/StopButton';
+import { drumKick, kickPattern } from './kickInstrument';
+
 class Kick extends Component {
-	constructor(props) {
-		super(props);
-		this.state = { text: '120' };
-		this.player = new Tone.Player({
-			url: soundfile
-		}).toMaster();
+	constructor() {
+		super();
+		this.state = {
+			text: '120',
+			kickPattern: kickPattern
+		};
 	}
-
-	_start = () => {
-		Tone.Transport.scheduleRepeat((time) => {
-			this.player.start(time);
-		}, '2n');
-		this.player.sync().start();
-		this.player.set({ volume: -10 });
-	};
-
-	_stop = () => {
-		this.player.stop();
-	};
 
 	_submitBPM = (e) => {
 		const bpm = parseInt(this.state.text);
@@ -39,6 +29,7 @@ class Kick extends Component {
 	};
 
 	render() {
+		drumKick.set(this.props.settings);
 		return (
 			<div className="instrument sampler">
 				<h1>KICK</h1>
@@ -49,12 +40,10 @@ class Kick extends Component {
 						Enter BPM
 					</button>
 				</form>
-				<button className="pure-button" onClick={this._start}>
+				<StartButton startClickHandler={this.props.startClickHandler} pattern={this.state.kickPattern}>
 					Start
-				</button>
-				<button className="pure-button" onClick={this._stop}>
-					Stop
-				</button>
+				</StartButton>
+				<StopButton stopClickHandler={this.props.stopClickHandler} pattern={this.state.kickPattern} />
 			</div>
 		);
 	}
