@@ -4,15 +4,18 @@ import './pure-min.css';
 import './App.css';
 
 import Chords from './components/chords/Chords';
-import { chordSynth } from './components/chords/chordInstrument';
+import { chordSynth, chordPattern } from './components/chords/chordInstrument';
 import Melody from './components/melody/Melody';
-import { melodySynth } from './components/melody/melodyInstrument';
+import { melodySynth, melodyPattern } from './components/melody/melodyInstrument';
 import Sample from './components/sample/Sample';
 import SampleInstrument from './components/sample/SampleInstrument';
 import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Kick from './components/kick/Kick';
 import Global from './components/global/Global';
+import Page from './Page';
+import Transpose from './components/controls/Transpose';
+import Waveform from './components/controls/Waveform';
 import Nav from './components/nav/Nav';
 import Login from './components/login/Login';
 import SaveButton from './components/buttons/SaveButton';
@@ -54,8 +57,6 @@ class App extends Component {
 		this.changeWave = this._changeWave;
 		this.setSliderVal = this._setSliderVal;
 		this.setReverse = this._setReverse;
-		this.startAll = this._startAll;
-		this.stopAll = this._stopAll;
 		this.setBuffer = this._setBuffer;
 		this.handleSave = this._handleSave;
 		this.setLoggedIn = this._setLoggedIn;
@@ -193,13 +194,13 @@ class App extends Component {
 		});
 	};
 
-	_startAll = (...patterns) => {
+	_startClickHandler = (...patterns) => {
 		for (var i = 0; i < patterns.length; i++) {
 			patterns[i].start();
 		}
 	};
 
-	_stopAll = (...patterns) => {
+	_stopClickHandler = (...patterns) => {
 		for (var i = 0; i < patterns.length; i++) {
 			patterns[i].stop();
 		}
@@ -235,14 +236,6 @@ class App extends Component {
 			},
 			body: JSON.stringify(this.state)
 		}).then(console.log('song is saved!'));
-	};
-
-	_startClickHandler = (pattern) => {
-		pattern.start('@8n');
-	};
-
-	_stopClickHandler = (pattern) => {
-		pattern.stop();
 	};
 
 	_detuneHandler = (val, synth) => {
@@ -334,12 +327,20 @@ class App extends Component {
 			);
 		} else if (currentPage === 'MELODY') {
 			partial = (
-				<Melody
+				<Page
+					header="M E L O D Y"
+					color="#C16F7A"
 					startClickHandler={this.startClickHandler}
 					stopClickHandler={this.stopClickHandler}
-					detuneHandler={this.detuneHandler}
-					changeWave={this.changeWave}
-				/>
+					handleSave={this.handleSave}
+					startText="START"
+					stopText="STOP"
+					mode="one"
+					pattern={melodyPattern}
+				>
+					<Transpose detuneHandler={this.detuneHandler} synth="melody" plus={1200} minus={-1200} />
+					<Waveform changeWave={this.changeWave} synth="melody" />
+				</Page>
 			);
 		} else if (currentPage === 'RESULTS') {
 			partial = <Results results={searchResults} setUrl={this.setUrl} />;
@@ -367,21 +368,29 @@ class App extends Component {
 			);
 		} else if (currentPage === 'CHORDS') {
 			partial = (
-				<div>
-					<Chords
-						startClickHandler={this.startClickHandler}
-						stopClickHandler={this.stopClickHandler}
-						detuneHandler={this.detuneHandler}
-						detune={chords.detune}
-						changeWave={this.changeWave}
-					/>
-					<SaveButton handleSave={this.handleSave} />
-				</div>
+				<Page
+					header="C H O R D S"
+					color="#575F8B"
+					startClickHandler={this.startClickHandler}
+					stopClickHandler={this.stopClickHandler}
+					handleSave={this.handleSave}
+					startText="START"
+					stopText="STOP"
+					mode="one"
+					pattern={chordPattern}
+				>
+					<Transpose detuneHandler={this.detuneHandler} synth="chords" plus={1200} minus={-1200} />
+					<Waveform changeWave={this.changeWave} synth="chords" />
+				</Page>
 			);
 		} else if (currentPage === 'GLOBAL') {
 			partial = (
 				<div>
-					<Global startAll={this.startAll} stopAll={this.stopAll} detuneHandler={this.detuneHandler} />;
+					<Global
+						startClickHandler={this.startClickHandler}
+						stopClickHandler={this.stopClickHandler}
+						detuneHandler={this.detuneHandler}
+					/>;
 					<SaveButton handleSave={this.handleSave} />
 				</div>
 			);

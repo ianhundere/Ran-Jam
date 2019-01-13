@@ -1,11 +1,35 @@
-.login {
-	display: inline-block;
-	width: 70px;
-	height: 35px;
-	position: absolute;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
+.landing {
+	text-align: center;
+	color: white;
+}
+
+.title {
+	font-size: 8em;
+	margin-bottom: 0;
+	text-shadow: 7px 3px 0px hotpink;
+}
+
+#landing-text {
+	padding-bottom: 20px;
+}
+
+.fadeIn {
+	-webkit-animation: fadein 5s; /* Safari, Chrome and Opera > 12.1 */
+	-moz-animation: fadein 5s; /* Firefox < 16 */
+	-ms-animation: fadein 5s; /* Internet Explorer */
+	-o-animation: fadein 5s; /* Opera < 12.1 */
+	animation: fadein 5s;
+}
+
+@keyframes fadein {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+.active {
+	display: none;
 }

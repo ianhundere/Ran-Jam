@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { drumKick, kickPattern } from './kickInstrument';
+import { kickPattern } from './kickInstrument';
 import Transport from '../controls/Transport';
 import './kick.css';
 

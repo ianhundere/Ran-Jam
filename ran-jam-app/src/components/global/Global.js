@@ -9,10 +9,10 @@ import { chordPattern } from '../chords/chordInstrument';
 import { kickPattern } from '../kick/kickInstrument';
 import sampleInstrument from '../sample/SampleInstrument';
 
-const Global = ({ detuneHandler, startAll, stopAll }) => {
+const Global = ({ detuneHandler, startClickHandler, stopClickHandler }) => {
 	return (
 		<div className="instrument global">
-			<h1>G L O B A L</h1>
+			<h1>GLOBAL</h1>
 			<div>
 				Transpose:
 				<Transpose detuneHandler={detuneHandler} synth="all" plus={100} minus={-100} />
@@ -21,8 +21,8 @@ const Global = ({ detuneHandler, startAll, stopAll }) => {
 				<BpmBox text={60} />
 			</div>
 			<Transport
-				handleStart={startAll}
-				handleStop={stopAll}
+				handleStart={startClickHandler}
+				handleStop={stopClickHandler}
 				pattern={[ melodyPattern, chordPattern, sampleInstrument, kickPattern ]}
 				startText="START ALL"
 				stopText="STOP ALL"
