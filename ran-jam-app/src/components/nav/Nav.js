@@ -11,6 +11,7 @@ class Nav extends Component {
 					<NavLink link={'MELODY'} handleClick={this.props.handleClick} />
 					<NavLink link={'SAMPLE'} handleClick={this.props.handleClick} />
 					<NavLink link={'PIANO'} handleClick={this.props.handleClick} />
+					<NavLink link={'GLOBAL'} handleClick={this.props.handleClick} />
 				</ul>
 			</div>
 		);

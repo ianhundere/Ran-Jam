@@ -4,12 +4,15 @@ import './pure-min.css';
 import './App.css';
 
 import Chords from './components/chords/Chords';
+import { chordSynth } from './components/chords/chordInstrument';
 import Melody from './components/melody/Melody';
+import { melodySynth } from './components/melody/melodyInstrument';
 import Sample from './components/sample/Sample';
 import SampleInstrument from './components/sample/SampleInstrument';
 import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Kick from './components/kick/Kick';
+import Global from './components/global/Global';
 import Nav from './components/nav/Nav';
 import Login from './components/login/Login';
 
@@ -20,8 +23,6 @@ class App extends Component {
 			loggedIn: false,
 			currentPage: 'LOGIN',
 			searchResults: null,
-			melodyDetune: 0,
-			chordsDetune: 0,
 			chords: {
 				detune: 0,
 				oscillator: {
@@ -47,11 +48,13 @@ class App extends Component {
 		this.setResults = this._setResults;
 		this.startClickHandler = this._startClickHandler;
 		this.stopClickHandler = this._stopClickHandler;
-		this.octaveHandler = this._octaveHandler;
+		this.detuneHandler = this._detuneHandler;
 		this.setUrl = this._setUrl;
 		this.changeWave = this._changeWave;
 		this.setSliderVal = this._setSliderVal;
-		// this.testServer = this._testServer;
+		this.setReverse = this._setReverse;
+		this.startAll = this._startAll;
+		this.stopAll = this._stopAll;
 		this.setBuffer = this._setBuffer;
 		this.handleSave = this._handleSave;
 		this.setLoggedIn = this._setLoggedIn;
@@ -134,7 +137,6 @@ class App extends Component {
 			this.setState({
 				oldKeys: [ ...this.state.oldKeys, key ]
 			});
-			console.log();
 			console.log(e.key);
 		});
 	}
@@ -181,8 +183,28 @@ class App extends Component {
 		});
 	};
 
+	_setReverse = (bool) => {
+		this.setState({
+			sample: {
+				...this.state.sample,
+				reverse: bool
+			}
+		});
+	};
+
+	_startAll = (...patterns) => {
+		for (var i = 0; i < patterns.length; i++) {
+			patterns[i].start();
+		}
+	};
+
+	_stopAll = (...patterns) => {
+		for (var i = 0; i < patterns.length; i++) {
+			patterns[i].stop();
+		}
+	};
+
 	_setUrl = (url) => {
-		console.log(url);
 		this.setState({
 			sample: {
 				...this.state.sample,
@@ -194,7 +216,6 @@ class App extends Component {
 
 	_setLoggedIn = (song) => {
 		const { chords, melody, sample, _id } = song;
-		console.log(chords);
 		this.setState({
 			loggedIn: true,
 			_id: _id,
@@ -216,26 +237,42 @@ class App extends Component {
 	};
 
 	_startClickHandler = (pattern) => {
-		pattern.start();
+		pattern.start('@8n');
 	};
 
 	_stopClickHandler = (pattern) => {
 		pattern.stop();
 	};
 
-	_octaveHandler = (val, synth) => {
+	_detuneHandler = (val, synth) => {
+		const { melody, chords, sample } = this.state;
 		if (synth === 'melody') {
 			this.setState({
 				melody: {
-					...this.state.melody,
-					detune: this.state.melody.detune + val
+					...melody,
+					detune: melody.detune + val
+				},
+				sample: {
+					...sample,
+					detune: sample.detune + val
 				}
 			});
 		} else if (synth === 'chords') {
 			this.setState({
 				chords: {
-					...this.state.chords,
-					detune: this.state.chords.detune + val
+					...chords,
+					detune: chords.detune + val
+				}
+			});
+		} else if (synth === 'all') {
+			this.setState({
+				chords: {
+					...chords,
+					detune: chords.detune + val
+				},
+				melody: {
+					...melody,
+					detune: melody.detune + val
 				}
 			});
 		}
@@ -268,14 +305,17 @@ class App extends Component {
 		});
 	};
 
-	// _testServer() {
-	// 	fetch('/test').then((res) => console.log(res));
-	// }
-
 	render() {
-		const { sample, chords, melody } = this.state;
+		const { sample, chords, melody, currentPage, searchResults, loggedIn } = this.state;
+
+		melodySynth.set(melody);
+		chordSynth.set(chords);
+		SampleInstrument.set({
+			detune: sample.detune
+		});
+		this.setBuffer(sample.url);
 		let partial;
-		if (this.state.currentPage === 'SAMPLE') {
+		if (currentPage === 'SAMPLE') {
 			partial = (
 				<Sample
 					startClickHandler={this.startClickHandler}
@@ -285,21 +325,20 @@ class App extends Component {
 					setSliderVal={this.setSliderVal}
 					detuneVal={sample.detune}
 					setBuffer={this.setBuffer}
+					setReverse={this.setReverse}
 				/>
 			);
-		} else if (this.state.currentPage === 'MELODY') {
+		} else if (currentPage === 'MELODY') {
 			partial = (
 				<Melody
 					startClickHandler={this.startClickHandler}
 					stopClickHandler={this.stopClickHandler}
-					octaveHandler={this.octaveHandler}
-					detune={melody.detune}
+					detuneHandler={this.detuneHandler}
 					changeWave={this.changeWave}
-					settings={melody}
 				/>
 			);
-		} else if (this.state.currentPage === 'RESULTS') {
-			partial = <Results results={this.state.searchResults} setUrl={this.setUrl} />;
+		} else if (currentPage === 'RESULTS') {
+			partial = <Results results={searchResults} setUrl={this.setUrl} />;
 		} else if (this.state.currentPage === 'PIANO') {
 			partial = (
 				<Piano
@@ -314,26 +353,30 @@ class App extends Component {
 			);
 		} else if (this.state.currentPage === 'KICK') {
 			partial = <Kick startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
-		} else if (this.state.currentPage === 'CHORDS') {
+		} else if (currentPage === 'CHORDS') {
 			partial = (
 				<Chords
 					startClickHandler={this.startClickHandler}
 					stopClickHandler={this.stopClickHandler}
-					octaveHandler={this.octaveHandler}
+					detuneHandler={this.detuneHandler}
 					detune={chords.detune}
 					changeWave={this.changeWave}
-					settings={chords}
 				/>
 			);
+		} else if (currentPage === 'GLOBAL') {
+			partial = <Global startAll={this.startAll} stopAll={this.stopAll} detuneHandler={this.detuneHandler} />;
 		}
-		if (this.state.loggedIn) {
+
+		if (loggedIn) {
 			return (
 				<div className="App">
 					<Nav handleClick={this.setPage} />
 					{partial}
-					<button className="pure-button" onClick={this.handleSave}>
-						SAVE
-					</button>
+					<div className="save-button">
+						<button className="pure-button" onClick={this.handleSave}>
+							SAVE
+						</button>
+					</div>
 				</div>
 			);
 		} else {

@@ -20,14 +20,6 @@ class Sample extends Component {
 		this.handleClick = this._handleClick;
 	}
 
-	componentDidMount() {
-		console.log(this.props.url);
-		sampleInstrument.set({
-			detune: this.props.detuneVal
-		});
-		this.props.setBuffer(this.props.url);
-	}
-
 	_handleChange = (event) => {
 		this.setState({
 			query: event.target.value
@@ -35,11 +27,14 @@ class Sample extends Component {
 	};
 
 	_handleClick = () => {
+		let reverse;
 		if (sampleInstrument.reverse) {
-			sampleInstrument.set({ reverse: false });
+			reverse = false;
 		} else {
-			sampleInstrument.set({ reverse: true });
+			reverse = true;
 		}
+		sampleInstrument.set({ reverse: reverse });
+		this.props.setReverse(reverse);
 	};
 
 	_handleSubmit = (event) => {

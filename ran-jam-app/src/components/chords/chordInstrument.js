@@ -1,6 +1,7 @@
 import Tone from 'tone';
 import chordList from './chordList';
 import delay from '../fx/delay';
+import { randomVal, rates } from '../lib/random';
 
 const randomIndex = (array) => {
 	return Math.floor(Math.random() * array.length);
@@ -23,6 +24,7 @@ chordSynth.set({
 
 var chordPattern = new Tone.Event(function(rate) {
 	chordSynth.triggerAttackRelease(randomChord(randomIndex), '4n');
+	chordPattern.playbackRate = randomVal(rates);
 });
 
 chordPattern.loop = true;

@@ -1,17 +1,18 @@
 import React from 'react';
-import sinewave from '../../sinewave.png';
 
-const WaveButton = ({ changeWave, wave, synth }) => {
+const WaveButton = ({ changeWave, wave, synth, img, alt }) => {
 	return (
-		<img
-			alt="sinewave"
-			src={sinewave}
-			onClick={() => {
-				changeWave(wave, synth);
-			}}
-			className="pure-button"
-			id="wave-button"
-		/>
+		<span className="wave-button">
+			<img
+				src={img}
+				alt={alt}
+				onClick={() => {
+					changeWave(wave, synth);
+				}}
+				className="pure-button"
+				id="wave-button"
+			/>
+		</span>
 	);
 };
 

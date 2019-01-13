@@ -1,6 +1,7 @@
 import React from 'react';
 import GoogleLogin from 'react-google-login';
 import { GOOGLE_CLIENT_ID } from './config.js';
+import './login.css';
 
 const Login = ({ setLoggedIn }) => {
 	const responseGoogle = (response) => {
@@ -8,7 +9,6 @@ const Login = ({ setLoggedIn }) => {
 			throw response.error;
 		} else {
 			const { tokenId, profileObj: { email, givenName } } = response;
-			console.log(response);
 			fetch('/songs', {
 				method: 'POST',
 				headers: {
@@ -29,13 +29,15 @@ const Login = ({ setLoggedIn }) => {
 	};
 
 	return (
-		<GoogleLogin
-			clientId={GOOGLE_CLIENT_ID}
-			buttonText="Login"
-			onSuccess={responseGoogle}
-			onFailure={responseGoogle}
-			className="pure-button"
-		/>
+		<div className="login">
+			<GoogleLogin
+				clientId={GOOGLE_CLIENT_ID}
+				buttonText="Login"
+				onSuccess={responseGoogle}
+				onFailure={responseGoogle}
+				className="pure-button"
+			/>
+		</div>
 	);
 };
 
