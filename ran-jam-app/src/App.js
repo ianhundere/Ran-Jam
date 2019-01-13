@@ -15,6 +15,7 @@ import Kick from './components/kick/Kick';
 import Global from './components/global/Global';
 import Nav from './components/nav/Nav';
 import Login from './components/login/Login';
+import SaveButton from './components/buttons/SaveButton';
 
 class App extends Component {
 	constructor() {
@@ -317,16 +318,19 @@ class App extends Component {
 		let partial;
 		if (currentPage === 'SAMPLE') {
 			partial = (
-				<Sample
-					startClickHandler={this.startClickHandler}
-					stopClickHandler={this.stopClickHandler}
-					setResults={this.setResults}
-					url={sample.url}
-					setSliderVal={this.setSliderVal}
-					detuneVal={sample.detune}
-					setBuffer={this.setBuffer}
-					setReverse={this.setReverse}
-				/>
+				<div>
+					<Sample
+						startClickHandler={this.startClickHandler}
+						stopClickHandler={this.stopClickHandler}
+						setResults={this.setResults}
+						url={sample.url}
+						setSliderVal={this.setSliderVal}
+						detuneVal={sample.detune}
+						setBuffer={this.setBuffer}
+						setReverse={this.setReverse}
+					/>
+					<SaveButton handleSave={this.handleSave} />
+				</div>
 			);
 		} else if (currentPage === 'MELODY') {
 			partial = (
@@ -341,30 +345,46 @@ class App extends Component {
 			partial = <Results results={searchResults} setUrl={this.setUrl} />;
 		} else if (this.state.currentPage === 'PIANO') {
 			partial = (
-				<Piano
-					pianoKey={this.state.key}
-					allKeys={this.keyNames}
-					newKeys={this.state.newKeys}
-					oldKeys={this.state.oldKeys}
-					insertKey={this._insertKey}
-					extractKey={this._extractKey}
-					isActive={this.state.isActive}
-				/>
+				<div>
+					<Piano
+						pianoKey={this.state.key}
+						allKeys={this.keyNames}
+						newKeys={this.state.newKeys}
+						oldKeys={this.state.oldKeys}
+						insertKey={this._insertKey}
+						extractKey={this._extractKey}
+						isActive={this.state.isActive}
+					/>
+					<SaveButton handleSave={this.handleSave} />
+				</div>
 			);
 		} else if (this.state.currentPage === 'KICK') {
-			partial = <Kick startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
+			partial = (
+				<div>
+					<Kick startClickHandler={this.startClickHandler} stopClickHandler={this.stopClickHandler} />;
+					<SaveButton handleSave={this.handleSave} />
+				</div>
+			);
 		} else if (currentPage === 'CHORDS') {
 			partial = (
-				<Chords
-					startClickHandler={this.startClickHandler}
-					stopClickHandler={this.stopClickHandler}
-					detuneHandler={this.detuneHandler}
-					detune={chords.detune}
-					changeWave={this.changeWave}
-				/>
+				<div>
+					<Chords
+						startClickHandler={this.startClickHandler}
+						stopClickHandler={this.stopClickHandler}
+						detuneHandler={this.detuneHandler}
+						detune={chords.detune}
+						changeWave={this.changeWave}
+					/>
+					<SaveButton handleSave={this.handleSave} />
+				</div>
 			);
 		} else if (currentPage === 'GLOBAL') {
-			partial = <Global startAll={this.startAll} stopAll={this.stopAll} detuneHandler={this.detuneHandler} />;
+			partial = (
+				<div>
+					<Global startAll={this.startAll} stopAll={this.stopAll} detuneHandler={this.detuneHandler} />;
+					<SaveButton handleSave={this.handleSave} />
+				</div>
+			);
 		}
 
 		if (loggedIn) {
