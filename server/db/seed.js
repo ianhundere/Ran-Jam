@@ -1,5 +1,5 @@
 require('./config');
-// Require models
+
 const Song = require('../models/Song.js');
 
 const song = new Song({

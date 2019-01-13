@@ -16,7 +16,7 @@ app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use('/', require('./routes/index'));
-app.use('/auth', require('./routes/auth'));
+// app.use('/auth', require('./routes/auth'));
 
 const port = process.env.PORT || 3001;
 
