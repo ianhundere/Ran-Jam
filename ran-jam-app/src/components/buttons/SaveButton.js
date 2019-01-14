@@ -3,12 +3,12 @@ import React, { Component } from 'react';
 class SaveButton extends Component {
 	constructor() {
 		super();
-		this.handleClick = this.handleClick.bind(this);
+		this.handleClick = this._handleClick;
 	}
 
-	handleClick() {
+	_handleClick = () => {
 		this.props.handleSave();
-	}
+	};
 
 	render() {
 		return (

@@ -61,13 +61,13 @@ class Piano extends Component {
 		if (this.props.oldKeys) {
 			this.props.oldKeys.forEach((key) => {
 				this.noteOff(key);
-				this.props.extractKey(key);
+				this.props.didStopPlaying(key);
 			});
 		}
 		if (this.props.newKeys) {
 			this.props.newKeys.forEach((key) => {
 				this.noteOn(key);
-				this.props.insertKey(key);
+				this.props.didStartPlaying(key);
 			});
 			const keyList = this.props.allKeys.map((key) => (
 				<Key

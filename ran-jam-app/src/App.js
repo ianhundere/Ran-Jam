@@ -9,7 +9,9 @@ import sampleInstrument from './components/sample/SampleInstrument';
 import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Kick from './components/kick/Kick';
+// import SaveButton from './components/buttons/SaveButton';
 import Page from './Page';
+import PagePK from './PagePK';
 import Welcome from './components/welcome/Welcome';
 import Transpose from './components/controls/Transpose';
 import Waveform from './components/controls/Waveform';
@@ -134,8 +136,6 @@ class App extends Component {
 					})
 				});
 			}
-			console.log();
-			// console.log(e.key);
 		});
 		document.addEventListener('keyup', (e) => {
 			const key = this.keyTranslation[e.key];
@@ -146,7 +146,7 @@ class App extends Component {
 		});
 	}
 
-	_insertKey = (key) => {
+	_didStartPlaying = (key) => {
 		this.setState({
 			newKeys: this.state.newKeys.filter((note) => {
 				if (note === key) {
@@ -157,7 +157,7 @@ class App extends Component {
 			})
 		});
 	};
-	_extractKey = (key) => {
+	_didStopPlaying = (key) => {
 		this.setState({
 			oldKeys: this.state.oldKeys.filter((note) => {
 				if (note === key) {
@@ -318,6 +318,10 @@ class App extends Component {
 			handleSave: this.handleSave,
 			guest: guest
 		};
+		const pagepkProps = {
+			handleSave: this.handleSave,
+			guest: guest
+		};
 		melodySynth.set(melody);
 		chordSynth.set(chords);
 		sampleInstrument.set({
@@ -351,21 +355,25 @@ class App extends Component {
 		} else if (this.state.currentPage === 'PIANO') {
 			partial = (
 				<div>
-					<Piano
-						pianoKey={this.state.key}
-						allKeys={this.keyNames}
-						newKeys={this.state.newKeys}
-						oldKeys={this.state.oldKeys}
-						insertKey={this._insertKey}
-						extractKey={this._extractKey}
-						isActive={this.state.isActive}
-					/>
+					<PagePK {...pagepkProps}>
+						<Piano
+							pianoKey={this.state.key}
+							allKeys={this.keyNames}
+							newKeys={this.state.newKeys}
+							oldKeys={this.state.oldKeys}
+							didStartPlaying={this._didStartPlaying}
+							didStopPlaying={this._didStopPlaying}
+							isActive={this.state.isActive}
+						/>
+					</PagePK>
 				</div>
 			);
 		} else if (this.state.currentPage === 'KICK') {
 			partial = (
 				<div>
-					<Kick {...pageProps} />;
+					<PagePK {...pagepkProps}>
+						<Kick {...pageProps} />
+					</PagePK>
 				</div>
 			);
 		} else if (currentPage === 'CHORDS') {
