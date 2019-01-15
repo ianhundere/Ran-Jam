@@ -9,7 +9,7 @@ import sampleInstrument from './components/sample/SampleInstrument';
 import Results from './components/sample/Results';
 import Piano from './components/keyboard/Piano';
 import Kick from './components/kick/Kick';
-// import SaveButton from './components/buttons/SaveButton';
+import SampleName from './components/sample/SampleName';
 import Page from './Page';
 import PagePK from './PagePK';
 import Welcome from './components/welcome/Welcome';
@@ -46,7 +46,8 @@ class App extends Component {
 			sample: {
 				detune: 0,
 				url: null,
-				reverse: false
+				reverse: false,
+				name: ''
 			},
 			key: [],
 			newKeys: [],
@@ -209,11 +210,12 @@ class App extends Component {
 		}
 	};
 
-	_setUrl = (url) => {
+	_setUrl = (url, name) => {
 		this.setState({
 			sample: {
 				...this.state.sample,
-				url: url
+				url: url,
+				name: name
 			}
 		});
 		this.setBuffer(url);
@@ -333,6 +335,7 @@ class App extends Component {
 			partial = (
 				<Page header="S A M P L E" color="#CBB274" pattern={sampleInstrument} {...pageProps}>
 					<Search setResults={this.setResults} />
+					<SampleName name={sample.name} />
 					<Reverse setReverse={this.setReverse} />
 					<CustomSlider value={sample.detune} setSliderVal={this.setSliderVal}>
 						Speed:

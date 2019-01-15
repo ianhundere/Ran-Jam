@@ -55,6 +55,18 @@ ul {
 	border-radius: 10px;
 }
 
+@media (max-width: 510px) {
+	.instrument {
+		width: 350px;
+	}
+}
+
+@media (max-width: 320px) {
+	.instrument {
+		width: 300px;
+	}
+}
+
 .pure-menu-selected {
 	color: hotpink;
 }

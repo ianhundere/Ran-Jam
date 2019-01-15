@@ -4,7 +4,7 @@
 }
 
 #welcome {
-	background: -webkit-linear-gradient(#c16f7a, #575f8b);
+	background: -webkit-linear-gradient(#5b8b57, #c1c06f);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
 	text-align: center;
@@ -14,6 +14,31 @@
 }
 
 #welcome-text {
+	background: -webkit-linear-gradient(white, #c6c6c6);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 510px) {
+	#welcome-container {
+		width: 275px;
+		margin-bottom: -30px;
+	}
+
+	#welcome {
+		margin-top: 0;
+		margin: 0 auto;
+		font-size: 4em;
+	}
+
+	#disclaimer {
+		margin-top: -10px;
+	}
+}
+
+#disclaimer {
+	margin: 75px;
+	font-size: .8em;
 	background: -webkit-linear-gradient(white, #c6c6c6);
 	-webkit-background-clip: text;
 	-webkit-text-fill-color: transparent;
