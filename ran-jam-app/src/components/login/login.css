@@ -44,10 +44,8 @@
 	color: black;
 	background-color: #e8e400;
 	position: relative;
-	/*  display: table;*/
 	width: 215px;
 	margin: 0 auto;
-	/*  border-radius: 12px; */
 	padding: 7px 0 7px 0;
 }
 
@@ -75,7 +73,6 @@
 }
 
 #guestlogin {
-	/* color: black; */
 	background-color: #736fc1;
 	position: relative;
 	width: 210px;
@@ -114,5 +111,4 @@
 	font-size: .7em;
 	margin-top: 2px;
 	display: block;
-	/*  float: left;*/
 }

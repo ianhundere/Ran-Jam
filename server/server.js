@@ -6,6 +6,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const helmet = require('helmet');
 app.use(helmet());
+app.use(express.static('public'));
 
 const morgan = require('morgan');
 const path = require('path');

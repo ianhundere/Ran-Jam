@@ -1,22 +1,20 @@
-import React, { Component } from 'react';
+import React from 'react';
 import NavLink from './NavLink';
 import './nav.css';
 
-class Nav extends Component {
-	render() {
-		return (
-			<div className="pure-menu pure-menu-horizontal">
-				<ul className="pure-menu-list">
-					<NavLink link={'KICK'} handleClick={this.props.handleClick} />
-					<NavLink link={'CHORDS'} handleClick={this.props.handleClick} />
-					<NavLink link={'MELODY'} handleClick={this.props.handleClick} />
-					<NavLink link={'SAMPLE'} handleClick={this.props.handleClick} />
-					<NavLink link={'PIANO'} handleClick={this.props.handleClick} />
-					<NavLink link={'GLOBAL'} handleClick={this.props.handleClick} />
-				</ul>
-			</div>
-		);
-	}
-}
+const Nav = ({ handleClick }) => {
+	return (
+		<div className="pure-menu pure-menu-horizontal">
+			<ul className="pure-menu-list">
+				<NavLink link={'KICK'} handleClick={handleClick} />
+				<NavLink link={'CHORDS'} handleClick={handleClick} />
+				<NavLink link={'MELODY'} handleClick={handleClick} />
+				<NavLink link={'SAMPLE'} handleClick={handleClick} />
+				<NavLink link={'PIANO'} handleClick={handleClick} />
+				<NavLink link={'GLOBAL'} handleClick={handleClick} />
+			</ul>
+		</div>
+	);
+};
 
 export default Nav;

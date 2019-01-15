@@ -13,13 +13,13 @@
 	"builds": [
 		{
 			"src": "/server/server.js",
-			"use": "@now/node"
+			"use": "@now/node-server"
 		},
 		{
 			"src": "/ran-jam-app/package.json",
 			"use": "@now/static-build",
 			"config": {
-				"distDir": "dist"
+				"distDir": "build"
 			}
 		}
 	],

@@ -1,5 +1,6 @@
 @media (max-width: 510px) {
 	.pure-menu-link {
+		font-size: .5em;
 		width: 80px;
 		padding-left: 0;
 		padding-right: 0;
