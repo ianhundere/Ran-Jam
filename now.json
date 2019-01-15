@@ -25,6 +25,10 @@
 	],
 	"routes": [
 		{
+			"src": "^/(songs|save)$",
+			"dest": "server/server.js"
+		},
+		{
 			"src": "^/static/(.*)",
 			"dest": "ran-jam-app/static/$1"
 		},
