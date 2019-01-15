@@ -1,0 +1,59 @@
+{
+	"version": 2,
+	"name": "ran-jam",
+	"env": {
+		"HOST": "localhost",
+		"PORT": "3001",
+		"NAME": "ran-jam",
+		"MONGODB_URI": "@mongodb_uri",
+		"GOOGLE_CLIENT_ID": "@G_client",
+		"GOOGLE_CLIENT_SECRET": "@G_secret",
+		"FREESOUND_TOKEN": "@freesound"
+	},
+	"builds": [
+		{
+			"src": "/server/server.js",
+			"use": "@now/node"
+		},
+		{
+			"src": "/ran-jam-app/package.json",
+			"use": "@now/static-build",
+			"config": {
+				"distDir": "dist"
+			}
+		}
+	],
+	"routes": [
+		{
+			"src": "^/static/(.*)",
+			"dest": "ran-jam-app/static/$1"
+		},
+		{
+			"src": "^/favicon.ico",
+			"dest": "ran-jam-app/favicon.ico"
+		},
+		{
+			"src": "^/asset-manifest.json",
+			"dest": "ran-jam-app/asset-manifest.json"
+		},
+		{
+			"src": "^/manifest.json",
+			"dest": "ran-jam-app/manifest.json"
+		},
+		{
+			"src": "^/service-worker.js",
+			"headers": {
+				"cache-control": "s-maxage=0"
+			},
+			"dest": "ran-jam-app/service-worker.js"
+		},
+		{
+			"src": "^/precache-manifest.(.*)",
+			"dest": "ran-jam-app/precache-manifest.$1"
+		},
+		{
+			"src": "^/(.*)",
+			"dest": "ran-jam-app/index.html"
+		}
+	]
+}
