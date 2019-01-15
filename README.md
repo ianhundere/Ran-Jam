@@ -26,5 +26,5 @@ A full-stack web app built with React, Node.js, Express.js, MongoDB, and Tone.js
 - [mongoose](https://yarnpkg.com/en/package/mongoose)
 - [morgan](https://yarnpkg.com/en/package/morgan)
 
-![Ran-Jam Video](assests/ran-jam.gif)
 ![Ran-Jam Screenshot](assests/screenshot1.png)
+![Ran-Jam Video](assests/ran-jam.gif)
