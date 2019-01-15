@@ -200,13 +200,14 @@ class App extends Component {
 
 	_startClickHandler = (...patterns) => {
 		for (var i = 0; i < patterns.length; i++) {
+			console.log(patterns[i]);
 			patterns[i].start();
 		}
 	};
 
 	_stopClickHandler = (...patterns) => {
 		for (var i = 0; i < patterns.length; i++) {
-			patterns[i].stop();
+			if (patterns[i].state === 'started') patterns[i].stop();
 		}
 	};
 

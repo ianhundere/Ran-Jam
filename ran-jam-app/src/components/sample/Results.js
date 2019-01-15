@@ -2,11 +2,11 @@ import React from 'react';
 import './sampler.css';
 
 const Results = ({ results, setUrl }) => {
-	const samples = results.map((res) => {
+	const samples = results.map((res, i) => {
 		const url = res.previews['preview-hq-mp3'];
-		const name = res.name;
+		const { name } = res;
 		return (
-			<div className="sample" key={res.name}>
+			<div className="sample" key={i}>
 				<button
 					className="pure-button"
 					onClick={() => {
@@ -15,7 +15,7 @@ const Results = ({ results, setUrl }) => {
 				>
 					LOAD
 				</button>
-				{res.name}
+				{name}
 			</div>
 		);
 	});

@@ -8,7 +8,7 @@ const randomIndex = (array) => {
 };
 
 const randomChord = (randomIndex) => {
-	var i = randomIndex(chordList);
+	const i = randomIndex(chordList);
 	return chordList[i];
 };
 

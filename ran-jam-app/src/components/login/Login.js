@@ -15,6 +15,10 @@ class Login extends Component {
 		this.handleGuestClick = this._handleGuestClick;
 	}
 
+	componentDidMount() {
+		fetch(`/songs`);
+	}
+
 	_responseGoogle = (response) => {
 		if (response.error) {
 			throw response.error;
