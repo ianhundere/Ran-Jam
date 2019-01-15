@@ -68,9 +68,14 @@ class Login extends Component {
 					<GoogleLogin
 						clientId={GOOGLE_CLIENT_ID}
 						buttonText="Login"
+						render={(renderProps) => (
+							<button className="pure-button" onClick={renderProps.onClick}>
+								{' '}
+								Login{' '}
+							</button>
+						)}
 						onSuccess={this.responseGoogle}
 						onFailure={this.responseGoogle}
-						className="pure-button"
 					/>
 					<label htmlFor="login">Google Login</label>
 				</div>

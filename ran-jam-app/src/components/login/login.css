@@ -42,7 +42,6 @@
 
 #googlelogin {
 	color: black;
-	background-color: #e8e400;
 	position: relative;
 	width: 215px;
 	margin: 0 auto;
@@ -69,11 +68,10 @@
 #guest-btn {
 	position: absolute;
 	left: 0;
-	top: 7px;
+	top: -2px;
 }
 
 #guestlogin {
-	background-color: #736fc1;
 	position: relative;
 	width: 210px;
 	margin: 0 auto;
