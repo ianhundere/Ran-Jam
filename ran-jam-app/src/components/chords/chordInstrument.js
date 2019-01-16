@@ -12,7 +12,7 @@ const randomChord = (randomIndex) => {
 	return chordList[i];
 };
 
-var chordSynth = new Tone.PolySynth(8, Tone.Synth).chain(delay);
+const chordSynth = new Tone.PolySynth(8, Tone.Synth).chain(delay);
 
 chordSynth.set({
 	envelope: {
@@ -22,7 +22,7 @@ chordSynth.set({
 	volume: -20
 });
 
-var chordPattern = new Tone.Event(function(rate) {
+let chordPattern = new Tone.Event(function(rate) {
 	chordSynth.triggerAttackRelease(randomChord(randomIndex), '4n');
 	chordPattern.playbackRate = randomVal(rates);
 });

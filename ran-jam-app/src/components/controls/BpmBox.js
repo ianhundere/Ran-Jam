@@ -5,7 +5,7 @@ class BpmBox extends Component {
 	constructor() {
 		super();
 		this.state = {
-			text: '60'
+			text: Tone.Transport.bpm.value
 		};
 		this.submitBPM = this._submitBPM;
 		this.updateText = this._updateText;
