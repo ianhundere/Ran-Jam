@@ -15,8 +15,7 @@ const Welcome = () => {
 				</div>
 			</div>
 			<p id="disclaimer">
-				Note: The Web Audio API is an experimental technology which is not yet supported by all browsers. For
-				the best experience, please use the latest versions of Google Chrome or Mozilla Firefox.
+				Note: For the best experience, please use the latest versions of Google Chrome or Mozilla Firefox.
 			</p>
 		</div>
 	);
