@@ -5,10 +5,10 @@
 		"HOST": "localhost",
 		"PORT": "3001",
 		"NAME": "ran-jam",
-		"MONGODB_URI": "@mongodb_uri",
-		"GOOGLE_CLIENT_ID": "@g_client",
-		"GOOGLE_CLIENT_SECRET": "@g_secret",
-		"FREESOUND_TOKEN": "@freesound"
+		"MONGODB_URI": "MONGODB_URI",
+		"GOOGLE_CLIENT_ID": "GOOGLE_CLIENT_ID",
+		"GOOGLE_CLIENT_SECRET": "GOOGLE_CLIENT_SECRET",
+		"FREESOUND_TOKEN": "FREESOUND_TOKEN"
 	},
 	"builds": [
 		{

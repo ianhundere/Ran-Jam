@@ -28,3 +28,11 @@ A full-stack web app built with React, Node.js, Express.js, MongoDB, and Tone.js
 
 ![Ran-Jam Screenshot](assests/screenshot1.png)
 ![Ran-Jam Video](assests/ran-jam.gif)
+
+###### update
+  - removed the following for mlab migration to atlas
+```		
+  "MONGODB_URI": "@mongodb_uri",
+  "GOOGLE_CLIENT_ID": "@g_client",
+  "GOOGLE_CLIENT_SECRET": "@g_secret",
+  "FREESOUND_TOKEN": "@freesound"```
