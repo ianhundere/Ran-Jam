@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import GoogleLogin from 'react-google-login';
 import Loading from './Loading';
-import { GOOGLE_CLIENT_ID } from './config.js';
+// import { GOOGLE_CLIENT_ID } from './config.js';
 import './login.css';
 
 class Login extends Component {
@@ -66,7 +66,7 @@ class Login extends Component {
 				<p id="landing-text">An automated jam station for your innerjammer; built with Tone.js and React.</p>
 				<div className={this.state.active} id="googlelogin">
 					<GoogleLogin
-						clientId={GOOGLE_CLIENT_ID}
+						clientId={process.env.GOOGLE_CLIENT_ID}
 						buttonText="Login"
 						render={(renderProps) => (
 							<button className="pure-button" onClick={renderProps.onClick}>

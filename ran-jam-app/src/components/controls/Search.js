@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { secretStuff } from './config.js';
+// import { secretStuff } from './config.js';
 
 class Search extends Component {
 	constructor() {
@@ -25,7 +25,7 @@ class Search extends Component {
 	};
 
 	_searchFreesound = (query) => {
-		const url = `https://www.freesound.org/apiv2/search/text/?query=${query}&fields=name,previews&token=${secretStuff.FREESOUND_TOKEN}`;
+		const url = `https://www.freesound.org/apiv2/search/text/?query=${query}&fields=name,previews&token=${process.env.FREESOUND_TOKEN}`;
 		fetch(url).then((res) => res.json()).then((res) => {
 			this.props.setResults(res.results);
 		});

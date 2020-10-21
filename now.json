@@ -4,11 +4,7 @@
 	"env": {
 		"HOST": "localhost",
 		"PORT": "3001",
-		"NAME": "ran-jam",
-		"MONGODB_URI": "MONGODB_URI",
-		"GOOGLE_CLIENT_ID": "GOOGLE_CLIENT_ID",
-		"GOOGLE_CLIENT_SECRET": "GOOGLE_CLIENT_SECRET",
-		"FREESOUND_TOKEN": "FREESOUND_TOKEN"
+		"NAME": "ran-jam"
 	},
 	"builds": [
 		{
