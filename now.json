@@ -9,7 +9,7 @@
 	"builds": [
 		{
 			"src": "/server/server.js",
-			"use": "@now/node-server"
+			"use": "@vercel/node"
 		},
 		{
 			"src": "/ran-jam-app/package.json",
