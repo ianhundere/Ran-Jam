@@ -13,7 +13,7 @@
 		},
 		{
 			"src": "/ran-jam-app/package.json",
-			"use": "@now/static-build",
+			"use": "@vercel/static-build",
 			"config": {
 				"distDir": "build"
 			}
